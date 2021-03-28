@@ -19,6 +19,13 @@ urlpatterns = [
     path('home/', home_view, name = "home"),
     path('about/', about_view, name = "about"),
     path('cart/', cart_view, name = "cart"),
+    path('checkout/', checkout_view, name = "checkout"),
+    path('contact_us/', contact_us_view, name = "contact_us"),
+    path('gallery/', gallery_view, name = "gallery"),
+    path('my_account/', my_account_view, name = "my_account"),
+    path('shop_detail/', shop_detail_view, name = "shop_detail"),
+    path('shop/', shop_view, name = "shop"),
+    path('wishlist/', wishlist_view, name = "wishlist"),
 
 ]
 
