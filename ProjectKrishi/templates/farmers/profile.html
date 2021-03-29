@@ -225,23 +225,48 @@
                 <div class="col-lg-6">
                     <h2 class="ADDING ITEM">These are the items uploaded </h2>
 
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Description</th>
+                            <!-- <th>Remove</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
                     {% for product in description %}
-                                
-                                <tr>
-                                    <!-- <td><a class="btn btn-sm btn-info" href="{ 'customer-dashboard' customer.id %}">View</a></td> -->
-                                    <!-- <td></td><img class="img-fluid" src="{% static 'product.image' %}" alt="" /></td> -->
-                                    <!-- <td>{{ product.image }}</td> -->
-                                    <td>{{ product.product_name }}</td>
-                                    <td>{{ product.price }}</td>
-                                    <td>{{ product.stock }}</td>
-                                    <td>{{ product.desc }}</td>
-                                                                       
-                                </tr>
-                                
-                        {% endfor %}
+                    
+                    <tr>
 
-
-
+                        <td class="name-pr">
+                            <a href="#">{{ product.category }}</a>
+                        </td>
+                    
+                        <td class="name-pr">
+                            <a href="#">{{ product.product_name }}</a>
+                        </td>
+                    
+                        <td class="price-pr">
+                            <p>{{ product.price }}</p>
+                        </td>
+                        <td class="quantity-box">
+                            <p>{{ product.stock }}</p>
+                        </td>
+                        <td class="total-pr">
+                            <p>{{ product.desc }}</p>
+                        </td>
+                        
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+                </table>
+                    
 
 
                     

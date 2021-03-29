@@ -24,15 +24,7 @@ def cart_view(request, *args, **kwargs):
 
 	return render(request, "farmers/cart.html", context)
 
-def Desciption_view(request, *args, **kwargs):
-
-	Description = Description.objects.all()
-	print(Description)
-	context = {
-		'Description': Description,
-	}
-
-	return render(request, "farmers/profile.html", context)
+# def Desciption_view(request, *args, **kwargs):
 
 
 def checkout_view(request, *args, **kwargs):
@@ -68,5 +60,12 @@ def wishlist_view(request, *args, **kwargs):
 	return render(request, "farmers/wishlist.html", {})
 
 def profile_view(request, *args, **kwargs):
-	
-	return render(request, "farmers/profile.html", {})
+
+	description = Description.objects.all()
+	print(description)
+	context = {
+		'description': description,
+	}
+
+	return render(request, "farmers/profile.html", context)
+
