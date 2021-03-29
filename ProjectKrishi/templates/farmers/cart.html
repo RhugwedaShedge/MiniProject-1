@@ -1,8 +1,11 @@
+
 {% extends 'farmers/main.html' %}
 
 {% load static %}
 
 {% block content %}
+
+   
 
     <!-- Start All Title Box -->
     <div class="all-title-box">
@@ -38,10 +41,27 @@
                                 </tr>
                             </thead>
                             <tbody>
+
+                                {% for product in carts %}
+                                
+                                <tr>
+                                    <!-- <td><a class="btn btn-sm btn-info" href="{ 'customer-dashboard' customer.id %}">View</a></td> -->
+                                    <td></td><img class="img-fluid" src="{% static 'product.image' %}" alt="" /></td>
+                                    <!-- <td>{{ product.image }}</td> -->
+                                    <td>{{ product.product_name }}</td>
+                                    <td>{{ product.price }}</td>
+                                    <td>{{ product.quantity }}</td>
+                                    <td>{{ product.total_price }}</td>
+                                                                       
+                                </tr>
+                                
+                                {% endfor %}
+
                                 <tr>
                                     <td class="thumbnail-img">
                                         <a href="#">
-									<img class="img-fluid" src="images/img-pro-01.jpg" alt="" />
+                                        <!-- <img class="img-fluid" src="{{ cart.image }}" alt="" /> -->
+									<!-- <img class="img-fluid" src="{% static 'farmers/images/img-pro-01.jpg' %}" alt="" /> -->
 								</a>
                                     </td>
                                     <td class="name-pr">
@@ -65,7 +85,7 @@
                                 <tr>
                                     <td class="thumbnail-img">
                                         <a href="#">
-									<img class="img-fluid" src="images/img-pro-02.jpg" alt="" />
+									<img class="img-fluid" src="{% static 'farmers/images/img-pro-02.jpg' %}" alt="" />
 								</a>
                                     </td>
                                     <td class="name-pr">
@@ -89,7 +109,7 @@
                                 <tr>
                                     <td class="thumbnail-img">
                                         <a href="#">
-									<img class="img-fluid" src="images/img-pro-03.jpg" alt="" />
+									<img class="img-fluid" src="{% static 'farmers/images/img-pro-03.jpg'}" alt="" />
 								</a>
                                     </td>
                                     <td class="name-pr">

@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponse
 
+from .models import *
+
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
@@ -11,9 +13,17 @@ def about_view(request, *args, **kwargs):
 	
 	return render(request, "farmers/about.html", {})
 
+
 def cart_view(request, *args, **kwargs):
-	
-	return render(request, "farmers/cart.html", {})
+
+	carts = Cart.objects.all()
+	print(carts)
+	context = {
+		'carts': carts,
+	}
+
+	return render(request, "farmers/cart.html", context)
+
 
 def checkout_view(request, *args, **kwargs):
 	
