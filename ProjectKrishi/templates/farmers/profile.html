@@ -224,6 +224,26 @@
                 </div>
                 <div class="col-lg-6">
                     <h2 class="ADDING ITEM">These are the items uploaded </h2>
+
+                    {% for product in description %}
+                                
+                                <tr>
+                                    <!-- <td><a class="btn btn-sm btn-info" href="{ 'customer-dashboard' customer.id %}">View</a></td> -->
+                                    <!-- <td></td><img class="img-fluid" src="{% static 'product.image' %}" alt="" /></td> -->
+                                    <!-- <td>{{ product.image }}</td> -->
+                                    <td>{{ product.product_name }}</td>
+                                    <td>{{ product.price }}</td>
+                                    <td>{{ product.stock }}</td>
+                                    <td>{{ product.desc }}</td>
+                                                                       
+                                </tr>
+                                
+                        {% endfor %}
+
+
+
+
+
                     
                     <div class="input-group">
                         <span class="input-group-text">Category and name of product</span>

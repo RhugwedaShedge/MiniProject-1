@@ -24,12 +24,12 @@ def cart_view(request, *args, **kwargs):
 
 	return render(request, "farmers/cart.html", context)
 
-def desc_view(request, *args, **kwargs):
+def Desciption_view(request, *args, **kwargs):
 
-	desc = desc.objects.all()
-	print(desc)
+	Description = Description.objects.all()
+	print(Description)
 	context = {
-		'desc': desc,
+		'Description': Description,
 	}
 
 	return render(request, "farmers/profile.html", context)
