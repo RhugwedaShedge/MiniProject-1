@@ -1,3 +1,11 @@
 from django.db import models
 
 # Create your models here.
+class Description(models.Model):
+
+	#image  		 = models.ImageField(default = "farmers/product_default.png", null = True, blank = True) 
+    Category = models.CharField(max_length = 120, null = True)
+	product_name = models.CharField(max_length = 120, null = True)
+	price		 = models.DecimalField(decimal_places = 2, max_digits = 100)
+	stock     = models.DecimalField(decimal_places = 0, max_digits = 100)
+	desc = models.CharField(max_length = 500, null = True)

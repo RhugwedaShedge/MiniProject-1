@@ -10,7 +10,8 @@ from .views import ( home_view,
                         my_account_view,
                         shop_detail_view,
                         shop_view,
-                        wishlist_view  )
+                        wishlist_view,
+                        profile_view  )
 
 app_name = 'farmers'
 
@@ -26,6 +27,7 @@ urlpatterns = [
     path('shop_detail/', shop_detail_view, name = "shop_detail"),
     path('shop/', shop_view, name = "shop"),
     path('wishlist/', wishlist_view, name = "wishlist"),
+    path('profile/', profile_view, name = "profile"),
 
 ]
 

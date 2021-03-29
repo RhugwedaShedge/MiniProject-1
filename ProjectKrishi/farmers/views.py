@@ -46,3 +46,7 @@ def shop_view(request, *args, **kwargs):
 def wishlist_view(request, *args, **kwargs):
 	
 	return render(request, "farmers/wishlist.html", {})
+
+def profile_view(request, *args, **kwargs):
+	
+	return render(request, "farmers/profile.html", {})
