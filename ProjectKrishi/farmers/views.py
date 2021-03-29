@@ -24,6 +24,16 @@ def cart_view(request, *args, **kwargs):
 
 	return render(request, "farmers/cart.html", context)
 
+def desc_view(request, *args, **kwargs):
+
+	desc = desc.objects.all()
+	print(desc)
+	context = {
+		'desc': desc,
+	}
+
+	return render(request, "farmers/profile.html", context)
+
 
 def checkout_view(request, *args, **kwargs):
 	
