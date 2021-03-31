@@ -69,3 +69,11 @@ def profile_view(request, *args, **kwargs):
 
 	return render(request, "farmers/profile.html", context)
 
+
+def add_to_cart(request, *args, **kwargs):
+
+	#if request.method == "POST":
+
+	
+	return render(request, "farmers/shop.html", {})
+
