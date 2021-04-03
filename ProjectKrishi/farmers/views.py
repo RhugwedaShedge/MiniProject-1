@@ -61,11 +61,20 @@ def wishlist_view(request, *args, **kwargs):
 
 def profile_view(request, *args, **kwargs):
 
-	description = Description.objects.all()
-	print(description)
+	goods = Goods.objects.all()
+	print(goods)
 	context = {
-		'description': description,
+		'goods': goods,
 	}
 
 	return render(request, "farmers/profile.html", context)
 
+def profile_view(request, *args, **kwargs):
+
+	equipments = Equipments.objects.all()
+	print(equipments)
+	context = {
+		'equipments': equipments,
+	}
+
+	return render(request, "farmers/profile.html", context)

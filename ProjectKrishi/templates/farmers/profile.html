@@ -218,30 +218,72 @@
     <div class="about-box-main">
         <div class="container">
             <div class="row">
-				<div class="col-lg-6">
+				<div class="col-lg-0">
                     <div class="banner-frame"> <img class="img-fluid" src="{% static 'images/about-img.jpg' %}" alt="" />
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <h2 class="ADDING ITEM">These are the items uploaded </h2>
+                <div class="col-lg-12">
+                    <h2 class="ADDING ITEM"><b>These are the items uploaded</b> </h2><br>
+                    
 
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th>Description</th>
-                            <!-- <th>Remove</th> -->
-                        </tr>
-                    </thead>
-                    <tbody>
+                
 
 
 
-                    {% for product in description %}
+               
+                
+                
+                  
+                
+                <!DOCTYPE html>
+                <html>
+                <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <style>
+                * {
+                box-sizing: border-box;
+                }
+
+                /* Create two equal columns that floats next to each other */
+                .column {
+                float: left;
+                width: 50%;
+                padding: 10px;
+                height: 300px; /* Should be removed. Only for demonstration */
+                }
+
+                /* Clear floats after the columns */
+                .row:after {
+                content: "";
+                display: table;
+                clear: both;
+                }
+                </style>
+                </head>
+                <body>
+
+               
+
+                <div class="row">
+                <div class="column" style="background-color:#aaa;">
+                    <h2>AGRICULTURAL GOODS :</h2>
+    
+                        <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Description</th>
+                                <!-- <th>Remove</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        
+                    {% for product in goods %}
                     
                     <tr>
 
@@ -259,6 +301,9 @@
                         <td class="quantity-box">
                             <p>{{ product.stock }}</p>
                         </td>
+                        <td class="quantity-box">
+                            <p>{{ product.min_purchase }}</p>
+                        </td>
                         <td class="total-pr">
                             <p>{{ product.desc }}</p>
                         </td>
@@ -268,33 +313,127 @@
                     {% endfor %}
                 </tbody>
                 </table>
-                    
+
+                        
+                </div>
+
+                <div class="column" style="background-color:#bbb;">
+                    <h2>AGRICULTURAL EQUIPMENTS:</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <!--<th>Category</th>-->
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Description</th>
+                                <!-- <th>Remove</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+    
+    
+    
+                        {% for product in equipments %}
+                        
+                        <tr>
+    
+                            <!--<td class="name-pr">
+                                <a href="#">{{ product.category }}</a>
+                            </td>-->
+                        
+                            <td class="name-pr">
+                                <a href="#">{{ product.product_name }}</a>
+                            </td>
+                        
+                            <td class="price-pr">
+                                <p>{{ product.price }}</p>
+                            </td>
+                            <td class="quantity-box">
+                                <p>{{ product.stock }}</p>
+                            </td>
+                            <td class="quantity-box">
+                                <p>{{ product.min_purchase }}</p>
+                            </td>
+                            <td class="total-pr">
+                                <p>{{ product.desc }}</p>
+                            </td>
+                            
+                        </tr>
+                        
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+                </div>
+
+                </body>
+                </html>
 
 
                     
-                    <div class="input-group">
-                        <span class="input-group-text">Category and name of product</span>
+                    
+                    <br><h2>Uploading items:</h2>
+                    <h3><b>AGRICULTURAL GOODS : </b></h3>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"style="width: 250px;">Category and name of product</span>
                         <input type="text" aria-label="Category" class="form-control">
                         <input type="text" aria-label="Name" class="form-control">
                     </div>
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text">Rs</span>
-                        <span class="input-group-text">enter in 0.00 format</span>
+                        <span class="input-group-text"style="width: 250px;">Rs(Enter in 0.00 format)</span>
                         <input type="text" class="form-control" aria-label="Rs (with dot and two decimal places)">
                       </div>
 
                       <div class="input-group mb-3">
-                        <span class="input-group-text">stock</span>
+                        <span class="input-group-text"style="width: 250px;">Stock</span>
                         <input type="text" class="form-control" aria-label="stock in units">
                       </div>
 
-                      <div class="input-group">
-                        <span class="input-group-text">Enter desciption</span>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text"style="width: 250px;">Minimum Purchase</span>
+                        <input type="text" class="form-control" aria-label="minimum purchase">
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text"style="width: 250px;">Enter description</span>
                         <textarea class="form-control" aria-label="desc"></textarea>
                       </div>
 
-                      <button type='submit' >Add</button>
+                      <center><button type='submit'style="width: 250px;" >Add</button></center><br><br>
+
+                      <h3><b>AGRICULTURAL EQUIPMENTS : </b></h3>
+                      <div class="input-group mb-3" >
+                        <span class="input-group-text"style="width: 250px;">Name of product</span>
+                        <!--<input type="text" aria-label="Category" class="form-control">-->
+                        <input type="text" aria-label="Name" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="width: 250px;">Rs.(Enter in 0.00 format)</span>
+                        
+                        <input type="text" class="form-control" aria-label="Rs (with dot and two decimal places)">
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text"style="width: 250px;">Stock</span>
+                        <input type="text" class="form-control" aria-label="stock in units">
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text"style="width: 250px;">Minimum Purchase</span>
+                        <input type="text" class="form-control" aria-label="minimum purchase">
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text"style="width: 250px;">Enter description</span>
+                        <textarea class="form-control" aria-label="desc"></textarea>
+                      </div>
+
+                      <center><button type='submit'style="width: 250px;" >Add</button></center><br><br>
+
 
                 </div>
             </div>
