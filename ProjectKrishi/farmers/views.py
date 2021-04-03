@@ -65,6 +65,9 @@ def profile_view(request, *args, **kwargs):
 	goods = Goods.objects.all()
 	equipments = Equipments.objects.all()
 
+	print(goods)
+	print(equipments)
+
 	context = {
 		'goods': goods,
 		'equipments': equipments,

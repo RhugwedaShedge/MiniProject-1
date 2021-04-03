@@ -9,3 +9,10 @@ class Migration(migrations.Migration):
         ('farmers', '0003_auto_20210403_1312'),
     ]
 
+    operations = [
+        migrations.RenameModel(
+            old_name='Description',
+            new_name='Goods',
+        ),
+    ]
+
