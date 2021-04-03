@@ -59,25 +59,28 @@ def wishlist_view(request, *args, **kwargs):
 	
 	return render(request, "farmers/wishlist.html", {})
 
+
 def profile_view(request, *args, **kwargs):
 
 	goods = Goods.objects.all()
+	equipments = Equipments.objects.all()
+
 	print(goods)
+	print(equipments)
+
 	context = {
 		'goods': goods,
-	}
-
-	return render(request, "farmers/profile.html", context)
-
-def profile_view(request, *args, **kwargs):
-
-	equipments = Equipments.objects.all()
-	print(equipments)
-	context = {
 		'equipments': equipments,
 	}
 
 	return render(request, "farmers/profile.html", context)
 
-def search(request):
-	return HttpResponse('This is search')
+
+def add_to_cart(request, *args, **kwargs):
+
+	#if request.method == "POST":
+
+	
+	return render(request, "farmers/shop.html", {})
+
+
