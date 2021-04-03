@@ -28,7 +28,7 @@ urlpatterns = [
     path('shop/', shop_view, name = "shop"),
     path('wishlist/', wishlist_view, name = "wishlist"),
     path('profile/', profile_view, name = "profile"),
-
+    #path('search',views.search,name='search'),
 ]
 
 

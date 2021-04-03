@@ -78,3 +78,6 @@ def profile_view(request, *args, **kwargs):
 	}
 
 	return render(request, "farmers/profile.html", context)
+
+def search(request):
+	return HttpResponse('This is search')
