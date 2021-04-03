@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.RenameField(
-            model_name='description',
+            model_name='Goods',
             old_name='Category',
             new_name='category',
         ),

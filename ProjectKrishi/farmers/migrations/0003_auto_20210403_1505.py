@@ -20,11 +20,6 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(blank=True, null=True, upload_to='')),
             ],
         ),
-        migrations.RenameField(
-            model_name='description',
-            old_name='Category',
-            new_name='category',
-        ),
         migrations.AlterField(
             model_name='cart',
             name='image',

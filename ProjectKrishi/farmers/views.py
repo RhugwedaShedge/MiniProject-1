@@ -63,8 +63,11 @@ def wishlist_view(request, *args, **kwargs):
 def profile_view(request, *args, **kwargs):
 
 	goods = Goods.objects.all()
+	equipments = Equipments.objects.all()
+
 	context = {
 		'goods': goods,
+		'equipments': equipments,
 	}
 
 	return render(request, "farmers/profile.html", context)
@@ -78,12 +81,4 @@ def add_to_cart(request, *args, **kwargs):
 	return render(request, "farmers/shop.html", {})
 
 
-def profile_view(request, *args, **kwargs):
-
-	equipments = Equipments.objects.all()
-	context = {
-		'equipments': equipments,
-	}
-
-	return render(request, "farmers/profile.html", context)
 
