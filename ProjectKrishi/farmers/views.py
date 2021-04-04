@@ -16,10 +16,16 @@ def about_view(request, *args, **kwargs):
 
 def cart_view(request, *args, **kwargs):
 
-	carts = Cart.objects.all()
-	print(carts)
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
+		items = order.cartitem_set.all()
+	else:
+		items = []
+
 	context = {
-		'carts': carts,
+		'items': items,
+		'order': order,
 	}
 
 	return render(request, "farmers/cart.html", context)
@@ -51,9 +57,16 @@ def shop_detail_view(request, *args, **kwargs):
 	
 	return render(request, "farmers/shop-detail.html", {})
 
+
 def shop_view(request, *args, **kwargs):
+	goods = Goods.objects.all()
+
+	context = {
+		'goods': goods,
+	}
 	
-	return render(request, "farmers/shop.html", {})
+	return render(request, "farmers/shop.html", context)
+
 
 def wishlist_view(request, *args, **kwargs):
 	

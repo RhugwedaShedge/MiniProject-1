@@ -61,14 +61,18 @@
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                     <div class="row">
+                                        <!-- ---------------------------------- -->
+
+                                        {% for product in goods %}
+
                                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
+                                                    <!-- <div class="type-lb">
                                                         <p class="sale">Sale</p>
-                                                    </div>
+                                                    </div> -->
 
-                                                    <img src="{% static '/farmers/images/img-pro-01.jpg' %}" class="img-fluid" alt="Image">
+                                                    <img src="{{ product.image.url }}" class="img-fluid" alt="Image">
 
 
                                                     <div class="mask-icon">
@@ -89,11 +93,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>{{ product.product_name }}</h4>
+                                                    <h5>₹{{ product.price }}</h5>
                                                 </div>
                                             </div>
                                         </div>
+                                        {% endfor %}
+                                        <!-- ------------------------------------------ -->
                                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
@@ -744,5 +750,6 @@
     <script src="{% static 'farmers/js/form-validator.min.js' %}"></script>
     <script src="{% static 'farmers/js/contact-form-script.js' %}"></script>
     <script src="{% static 'farmers/js/custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'farmers/js/cart.js' %}"></script>
 
 {% endblock %}
