@@ -27,8 +27,7 @@ urlpatterns = [
     path('shop_detail/', shop_detail_view, name = "shop_detail"),
     path('shop/', shop_view, name = "shop"),
     path('wishlist/', wishlist_view, name = "wishlist"),
-    path('profile/', profile_view, name = "profile"),
-    #path('search',views.search,name='search'),
+    path('profile/<str:pk>', profile_view, name = "profile"),
 ]
 
 

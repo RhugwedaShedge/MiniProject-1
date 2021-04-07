@@ -1,6 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 
 from .models import *
+
+from .forms import GoodsForm
 
 # Create your views here.
 
@@ -20,6 +22,7 @@ def cart_view(request, *args, **kwargs):
 		customer = request.user.customer
 		order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
 		items = order.cartitem_set.all()
+	
 	else:
 		items = []
 
@@ -29,8 +32,6 @@ def cart_view(request, *args, **kwargs):
 	}
 
 	return render(request, "farmers/cart.html", context)
-
-# def Desciption_view(request, *args, **kwargs):
 
 
 def checkout_view(request, *args, **kwargs):
@@ -73,20 +74,33 @@ def wishlist_view(request, *args, **kwargs):
 	return render(request, "farmers/wishlist.html", {})
 
 
-def profile_view(request, *args, **kwargs):
+def profile_view(request, pk):
 
 	goods = Goods.objects.all()
 	equipments = Equipments.objects.all()
 
-	print(goods)
-	print(equipments)
+
+	customer = Customer.objects.get(id = pk)
+
+	form = GoodsForm(initial = {'customer': customer})
+	#form_equip = EquipmentsForm(initial = {'customer': customer})
+
+	if request.method == "POST":
+		
+		form = GoodsForm(request.POST)
+
+		if form.is_valid():
+			form.save()
+			return redirect('/farmers/home/')
 
 	context = {
 		'goods': goods,
 		'equipments': equipments,
+		'form': form,
 	}
 
 	return render(request, "farmers/profile.html", context)
+
 
 
 def add_to_cart(request, *args, **kwargs):

@@ -1,8 +1,8 @@
 from django import forms
-from .models import Cart
+from .models import Goods
 
-class CartForm(UserCreationForm):
+class GoodsForm(forms.ModelForm):
 	class Meta:
-		model = Cart
-		fields = ['username', 'email', 'password1', 'password2']
+		model = Goods
+		fields = '__all__' 
 
