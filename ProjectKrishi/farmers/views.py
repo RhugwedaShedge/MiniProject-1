@@ -110,4 +110,6 @@ def add_to_cart(request, *args, **kwargs):
 	
 	return render(request, "farmers/shop.html", {})
 
-
+def upload_view(request, *args, **kwargs):
+	
+	return render(request, "farmers/upload.html", {})

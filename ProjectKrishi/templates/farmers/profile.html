@@ -66,7 +66,7 @@
                
 
                 <div class="row">
-                <div class="column" style="background-color:#aaa;">
+                <div class="column" style="background-color:#ffffff;">
                     <h2>AGRICULTURAL GOODS :</h2>
     
                         <table class="table">
@@ -118,8 +118,10 @@
                         
                 </div>
 
-                <div class="column" style="background-color:#bbb;">
-                    <h2>AGRICULTURAL EQUIPMENTS:</h2>
+                <div class="column" style="background-color:#ffffff;">
+                    
+                        <h2>AGRICULTURAL EQUIPMENTS:</h2>
+                    
                     <table class="table">
                         <thead>
                             <tr>
@@ -167,216 +169,12 @@
                 </body>
                 </html>                   
                     
-                    <br><h2>Uploading items:</h2>
-                    <h3><b>AGRICULTURAL GOODS : </b></h3>
-
-
-                    <form action="" method="POST"> {% csrf_token %}
-                        {{ form.as_ul }}
                     
-                        <input value="Add" type="submit" name="profile">
-                    </form>
-
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Category and name of product</span>
-                        <input type="text" aria-label="Category" class="form-control">
-                        <input type="text" aria-label="Name" class="form-control">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Rs(Enter in 0.00 format)</span>
-                        <input type="text" class="form-control" aria-label="Rs (with dot and two decimal places)">
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Stock</span>
-                        <input type="text" class="form-control" aria-label="stock in units">
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Minimum Purchase</span>
-                        <input type="text" class="form-control" aria-label="minimum purchase">
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Enter description</span>
-                        <textarea class="form-control" aria-label="desc"></textarea>
-                      </div>
-
-                      <center><button type='submit'style="width: 250px;" >Add</button></center><br><br>
-
-                      
-                    <form action="" method="POST"> {% csrf_token %}
-                        {{ form.as_p }}
-                    
-                        <input type="submit" name="profile">
-                    </form>
-                      
-                      <h3><b>AGRICULTURAL EQUIPMENTS : </b></h3>
-                      <div class="input-group mb-3" >
-                        <span class="input-group-text"style="width: 250px;">Name of product</span>
-                        <!--<input type="text" aria-label="Category" class="form-control">-->
-                        <input type="text" aria-label="Name" class="form-control">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" style="width: 250px;">Rs.(Enter in 0.00 format)</span>
-                        
-                        <input type="text" class="form-control" aria-label="Rs (with dot and two decimal places)">
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Stock</span>
-                        <input type="text" class="form-control" aria-label="stock in units">
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Minimum Purchase</span>
-                        <input type="text" class="form-control" aria-label="minimum purchase">
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Enter description</span>
-                        <textarea class="form-control" aria-label="desc"></textarea>
-                      </div>
-
-                      <center><button type='submit'style="width: 250px;" >Add</button></center><br><br>
-
-
                 </div>
             </div>
-            <div class="row my-5">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="service-block-inner">
-                        <h3>We are Trusted</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="service-block-inner">
-                        <h3>We are Professional</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="service-block-inner">
-                        <h3>We are Expert</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-12">
-                    <h2 class="noo-sh-title">Meet Our Team</h2>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="hover-team">
-                        <div class="our-team"> <img src="{% static 'images/img-1.jpg' %}" alt="" />
-                            <div class="team-content">
-                                <h3 class="title">Williamson</h3> <span class="post">Web Developer</span> </div>
-                            <ul class="social">
-                                <li>
-                                    <a href="#" class="fab fa-facebook"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-twitter"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-google-plus"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-youtube"></a>
-                                </li>
-                            </ul>
-                            <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
-                        </div>
-                        <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
-                        </div>
-                        <hr class="my-0"> </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="hover-team">
-                        <div class="our-team"> <img src="{% static 'images/img-2.jpg' %}" alt="" />
-                            <div class="team-content">
-                                <h3 class="title">Kristiana</h3> <span class="post">Web Developer</span> </div>
-                            <ul class="social">
-                                <li>
-                                    <a href="#" class="fab fa-facebook"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-twitter"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-google-plus"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-youtube"></a>
-                                </li>
-                            </ul>
-                            <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
-                        </div>
-                        <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
-                        </div>
-                        <hr class="my-0"> </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="hover-team">
-                        <div class="our-team"> <img src="{% static 'images/img-3.jpg' %}" alt="" />
-                            <div class="team-content">
-                                <h3 class="title">Steve Thomas</h3> <span class="post">Web Developer</span> </div>
-                            <ul class="social">
-                                <li>
-                                    <a href="#" class="fab fa-facebook"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-twitter"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-google-plus"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-youtube"></a>
-                                </li>
-                            </ul>
-                            <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
-                        </div>
-                        <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
-                        </div>
-                        <hr class="my-0"> </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="hover-team">
-                        <div class="our-team"> <img src="{% static 'images/img-1.jpg' %}" alt="" />
-                            <div class="team-content">
-                                <h3 class="title">Williamson</h3> <span class="post">Web Developer</span> </div>
-                            <ul class="social">
-                                <li>
-                                    <a href="#" class="fab fa-facebook"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-twitter"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-google-plus"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fab fa-youtube"></a>
-                                </li>
-                            </ul>
-                            <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
-                        </div>
-                        <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
-                        </div>
-                        <hr class="my-0"> </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            
+            
+                
     <!-- End About Page -->
 
     <!-- Start Instagram Feed  -->
