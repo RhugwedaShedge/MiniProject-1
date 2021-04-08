@@ -13,8 +13,12 @@ from .views import ( home_view,
                         wishlist_view,
                         profile_view,
                         upload_view ,
+<<<<<<< HEAD
                         loginpage_view,
                         registerpage_view )
+=======
+                        techniques_view, )
+>>>>>>> 8cb2d1ea1ca6caf497a757c95d0afac447666c2b
 
 app_name = 'farmers'
 
@@ -31,10 +35,14 @@ urlpatterns = [
     path('shop/', shop_view, name = "shop"),
     path('wishlist/', wishlist_view, name = "wishlist"),
     path('profile/<str:pk>', profile_view, name = "profile"),
-    path('upload/<str:pk>', upload_view, name = "upload"),
+    # path('upload/<str:pk>', upload_view, name = "upload"),
     path('login/', loginpage_view, name = "login"),
 	path('register/', registerpage_view, name = "register"),
 	# path('logout/', logoutpage_view, name = "logout")
+
+    path('upload/', upload_view, name = "upload"),
+    path('techniques/', techniques_view, name = "techniques"),
+
 ]
 
 

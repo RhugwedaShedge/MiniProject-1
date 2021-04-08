@@ -175,4 +175,7 @@ def loginpage_view(request):
 
 
 
+def techniques_view(request, *args, **kwargs):
+	
+	return render(request, "farmers/techniques.html", {})
 
