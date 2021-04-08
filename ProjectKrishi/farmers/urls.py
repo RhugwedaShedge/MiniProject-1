@@ -13,12 +13,9 @@ from .views import ( home_view,
                         wishlist_view,
                         profile_view,
                         upload_view ,
-<<<<<<< HEAD
                         loginpage_view,
-                        registerpage_view )
-=======
+                        registerpage_view,
                         techniques_view, )
->>>>>>> 8cb2d1ea1ca6caf497a757c95d0afac447666c2b
 
 app_name = 'farmers'
 

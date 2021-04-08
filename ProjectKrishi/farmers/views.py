@@ -105,7 +105,7 @@ def profile_view(request, pk):
 		'form': form,
 	}
 
-	return render(request, "farmers/upload.html", context)
+	return render(request, "farmers/profile.html", context)
 
 
 
