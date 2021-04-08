@@ -7,6 +7,14 @@ for (i = 0; i < updateBtns.length; i++)
         var action = this.dataset.action
         console.log('productId:', productId, 'action:', action)
     })
+
+    console.log('User:', user)
+    if(user == 'AnonymousUser'){
+        console.log('Not logged in')
+    }
+    else{
+        console.log('User logged in')
+    }
 }
 
-// console.log('Hello world')
+

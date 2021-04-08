@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, JsonResponse
 
 from .models import *
 
@@ -99,7 +99,7 @@ def profile_view(request, pk):
 		'form': form,
 	}
 
-	return render(request, "farmers/profile.html", context)
+	return render(request, "farmers/upload.html", context)
 
 
 
@@ -113,3 +113,7 @@ def add_to_cart(request, *args, **kwargs):
 def upload_view(request, *args, **kwargs):
 	
 	return render(request, "farmers/upload.html", {})
+
+
+def UpdateItem(request):
+	return JsonResponse('Item was added', safe = False)

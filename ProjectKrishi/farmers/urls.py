@@ -29,7 +29,7 @@ urlpatterns = [
     path('shop/', shop_view, name = "shop"),
     path('wishlist/', wishlist_view, name = "wishlist"),
     path('profile/<str:pk>', profile_view, name = "profile"),
-    path('upload/', upload_view, name = "upload"),
+    path('upload/<str:pk>', upload_view, name = "upload"),
 ]
 
 

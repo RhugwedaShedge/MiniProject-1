@@ -65,9 +65,12 @@
                         <textarea class="form-control" aria-label="desc"></textarea>
                       </div>
 
-                      <center><form action="" method="POST"> {% csrf_token %}
-                        <input style="width: 250px;" value="Add" type="submit" name="profile">
-                        </form>
+                      <center>
+                          <form action="" method="POST"> {% csrf_token %}
+                                {{ form.as_ul }}
+                    
+                            <input type="submit" name="Create Order">
+                          </form>
                     </center><br><br>
 
                       
@@ -101,11 +104,14 @@
                         <textarea class="form-control" aria-label="desc"></textarea>
                       </div>
 
-                      <center><form action="" method="POST"> {% csrf_token %}
-                    
-                        <input style="width: 250px;" type="submit" name="profile">
+                      <center>
+                        <form action="" method="POST"> {% csrf_token %}
+                            {{ form.as_ul }}
+                        
+                            <input type="submit" name="Create Order">
                         </form>
-                    </center><br><br>
+
+                      </center><br><br>
 
 
                 </div>
