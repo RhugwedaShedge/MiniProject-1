@@ -12,7 +12,8 @@ from .views import ( home_view,
                         shop_view,
                         wishlist_view,
                         profile_view,
-                        upload_view , )
+                        upload_view ,
+                        techniques_view, )
 
 app_name = 'farmers'
 
@@ -30,6 +31,7 @@ urlpatterns = [
     path('wishlist/', wishlist_view, name = "wishlist"),
     path('profile/<str:pk>', profile_view, name = "profile"),
     path('upload/', upload_view, name = "upload"),
+    path('techniques/', techniques_view, name = "techniques"),
 ]
 
 

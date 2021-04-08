@@ -113,3 +113,7 @@ def add_to_cart(request, *args, **kwargs):
 def upload_view(request, *args, **kwargs):
 	
 	return render(request, "farmers/upload.html", {})
+
+def techniques_view(request, *args, **kwargs):
+	
+	return render(request, "farmers/techniques.html", {})
