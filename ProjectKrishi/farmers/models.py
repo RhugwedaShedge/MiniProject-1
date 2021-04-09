@@ -12,7 +12,20 @@ class Cart(models.Model):
 	quantity     = models.DecimalField(decimal_places = 0, max_digits = 100)
 	total_price  = models.DecimalField(decimal_places = 2, max_digits = 100)
 
+class Customer(models.Model):
+	user		= models.OneToOneField(User, null = True, on_delete = models.CASCADE)
+	name  		= models.CharField(max_length = 120, null = True)
+	phone		= models.CharField(max_length = 120, null = True)
+	email		= models.CharField(max_length = 120, null = True)
+	address     = models.CharField(max_length = 120, null = True)
+	date_created= models.DateTimeField(auto_now_add = True, null = True)
+
+	def __str__(self):
+		return self.name
+
+
 class Goods(models.Model): 
+	customer     = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
 	image  		 = models.ImageField(default = "product_default.png", null = True, blank = True)
 	category     = models.CharField(max_length = 120, null = True)
 	product_name = models.CharField(max_length = 120, null = True)
@@ -24,6 +37,7 @@ class Goods(models.Model):
 	def __str__(self):
 		return self.product_name
 
+
 class Equipments(models.Model):
 	product_name = models.CharField(max_length = 120, null = True)
 	price		 = models.DecimalField(decimal_places = 2, max_digits = 100)
@@ -34,16 +48,6 @@ class Equipments(models.Model):
 	def __str__(self):
 		return self.product_name
 
-class Customer(models.Model):
-	user		= models.OneToOneField(User, null = True, on_delete = models.CASCADE) # User is in-built
-	name  		= models.CharField(max_length = 120, null = True)
-	phone		= models.CharField(max_length = 120, null = True)
-	email		= models.CharField(max_length = 120, null = True)
-	address     = models.CharField(max_length = 120, null = True)
-	date_created= models.DateTimeField(auto_now_add = True, null = True)
-
-	def __str__(self):
-		return self.name
 
 class CustomerCart(models.Model):
 	customer      = models.OneToOneField(Customer, on_delete=models.SET_NULL, blank=True, null=True)

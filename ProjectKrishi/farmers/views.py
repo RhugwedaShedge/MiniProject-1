@@ -82,27 +82,15 @@ def wishlist_view(request, *args, **kwargs):
 @login_required(login_url = 'login')
 def profile_view(request, pk):
 
-	goods = Goods.objects.all()
+	if request.user.is_authenticated:
+		customer = request.user.customer
+
+	goods = Goods.objects.filter(customer=customer)
 	equipments = Equipments.objects.all()
-
-
-	customer = Customer.objects.get(id = pk)
-
-	form = GoodsForm(initial = {'customer': customer})
-	#form_equip = EquipmentsForm(initial = {'customer': customer})
-
-	if request.method == "POST":
-		
-		form = GoodsForm(request.POST)
-
-		if form.is_valid():
-			form.save()
-			return redirect('/farmers/home/')
 
 	context = {
 		'goods': goods,
 		'equipments': equipments,
-		'form': form,
 	}
 
 	return render(request, "farmers/profile.html", context)
@@ -116,9 +104,32 @@ def add_to_cart(request, *args, **kwargs):
 	
 	return render(request, "farmers/shop.html", {})
 
-def upload_view(request, *args, **kwargs):
+
+def upload_view(request):
+
+	if request.user.is_authenticated:
+		customer = request.user.customer
+
+	form = GoodsForm(initial = {'customer': customer})
+	#form_equip = EquipmentsForm(initial = {'customer': customer})
+
+	if request.method == "POST":
+		
+		form = GoodsForm(request.POST)
+
+		if form.is_valid():
+			
+			form.save()
+			
+			return redirect('/farmers/home/')
+
+	context = {
+		'form': form,
+	}
+
+	return render(request, "farmers/upload.html", context)
 	
-	return render(request, "farmers/upload.html", {})
+
 
 
 # def UpdateItem(request):

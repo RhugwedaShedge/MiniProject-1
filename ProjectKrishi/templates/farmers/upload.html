@@ -30,71 +30,73 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <h2 class="Uploading ITEM"><b>Upload items</b> </h2><br>
-                                  
-                
-                    <h3><b>AGRICULTURAL GOODS : </b></h3>
-
-
+                    <form method="POST" action="">
                     
+                        {% csrf_token %}
 
+                        <h2 class="Uploading ITEM"><b>Upload items</b> </h2><br>
+                                    
+                    
+                        <h3><b>AGRICULTURAL GOODS : </b></h3>
+              
 
-                    <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Category and name of product</span>
-                        <input type="text" aria-label="Category" class="form-control">
-                        <input type="text" aria-label="Name" class="form-control">
-                    </div>
+                        {{ form.image }}
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"style="width: 250px;">Category and name of product</span>
+                            {{ form.category }}
+                            {{ form.product_name }}
+                        </div>
 
-                    <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Rs(Enter in 0.00 format)</span>
-                        <input type="text" class="form-control" aria-label="Rs (with dot and two decimal places)">
-                      </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"style="width: 250px;">Rs(Enter in 0.00 format)</span>
+                            {{ form.price }}
+                        </div>
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Stock</span>
-                        <input type="text" class="form-control" aria-label="stock in units">
-                      </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"style="width: 250px;">Stock</span>
+                            {{ form.stock }}
+                        </div>
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Minimum Purchase</span>
-                        <input type="text" class="form-control" aria-label="minimum purchase">
-                      </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"style="width: 250px;">Minimum Purchase</span>
+                            {{ form.min_purchase }}
+                        </div>
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Enter description</span>
-                        <textarea class="form-control" aria-label="desc"></textarea>
-                      </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"style="width: 250px;">Enter description</span>
+                            {{ form.desc }}
+                        </div>
 
+                        <input value="Add" type="submit" name="Create Order">
+                    </form><br><br>
                       
                     
                       
                       <h3><b>AGRICULTURAL EQUIPMENTS : </b></h3>
+                      
                       <div class="input-group mb-3" >
                         <span class="input-group-text"style="width: 250px;">Name of product</span>
-                        <!--<input type="text" aria-label="Category" class="form-control">-->
-                        <input type="text" aria-label="Name" class="form-control">
+
+                        {{ form.product_name }}
                     </div>
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text" style="width: 250px;">Rs.(Enter in 0.00 format)</span>
-                        
-                        <input type="text" class="form-control" aria-label="Rs (with dot and two decimal places)">
-                      </div>
+                            <span class="input-group-text"style="width: 250px;">Rs(Enter in 0.00 format)</span>
+                            {{ form.price }}
+                        </div>
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Stock</span>
-                        <input type="text" class="form-control" aria-label="stock in units">
-                      </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"style="width: 250px;">Stock</span>
+                            {{ form.stock }}
+                        </div>
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Minimum Purchase</span>
-                        <input type="text" class="form-control" aria-label="minimum purchase">
-                      </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"style="width: 250px;">Enter description</span>
+                            {{ form.desc }}
+                        </div>
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text"style="width: 250px;">Enter description</span>
-                        <textarea class="form-control" aria-label="desc"></textarea>
-                      </div>
+                        <input value="Add" type="submit" name="Create Order">
+                    </form><br><br>
 
 
                 </div>
