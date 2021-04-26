@@ -120,6 +120,9 @@ def upload_view(request):
 		if form.is_valid():
 			
 			form.save()
+
+			prod = Goods.objects.last()
+			upd = Goods.objects.filter(product_name=prod).update(customer=customer)
 			
 			return redirect('/farmers/home/')
 
