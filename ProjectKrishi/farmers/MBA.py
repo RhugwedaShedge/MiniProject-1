@@ -7,7 +7,7 @@ from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
 def apriori_algo():
-    myretaildata = pd.read_excel('Online Retail.xlsx')
+    myretaildata = pd.read_excel('Krishi_dataset.xlsx')
     
 
     #Data Cleaning
@@ -17,7 +17,7 @@ def apriori_algo():
     myretaildata = myretaildata[~myretaildata['InvoiceNo'].str.contains('C')] #remove the credit transactions
 
     #Separating transactions for Germany
-    mybasket = (myretaildata[myretaildata['Country'] =="Germany"]
+    mybasket = (myretaildata[myretaildata['Country'] =="India"]
             .groupby(['InvoiceNo', 'Description'])['Quantity']
             .sum().unstack().reset_index().fillna(0)
             .set_index('InvoiceNo')) 
@@ -31,17 +31,17 @@ def apriori_algo():
             return 1
 
     my_basket_sets = mybasket.applymap(my_encode_units)
-    my_basket_sets.drop('POSTAGE', inplace=True, axis=1) #Remove "postage" as an item
+    #my_basket_sets.drop('POSTAGE', inplace=True, axis=1) #Remove "postage" as an item
 
 
     #Generatig frequent itemsets
-    my_frequent_itemsets = apriori(my_basket_sets, min_support=0.07, use_colnames=True)
+    my_frequent_itemsets = apriori(my_basket_sets, min_support=0.04, use_colnames=True)
 
 
     #generating rules
     my_rules = association_rules(my_frequent_itemsets, metric="lift", min_threshold=1)
 
-    rules = my_rules[ (my_rules['lift'] >= 3) & (my_rules['confidence'] >= 0.3) ]
+    rules = my_rules[ (my_rules['lift'] >= 1) & (my_rules['confidence'] >= 0.1 ) ]
     print(rules)
 
     return rules

@@ -55,10 +55,10 @@ def cart_view(request, *args, **kwargs):
 	for i in mba.index:
 		# print(mba.antecedents[i])
 		# print(mba.consequents[i])
-		if mba.antecedents[i] == frozenset({'WOODLAND'}):
+		if mba.antecedents[i] == frozenset({'mango'}):
 			print('1')
 			print(mba.consequents[i])
-	r = [mba.consequents[i] for i in mba.index if mba.antecedents[i] == frozenset({'WOODLAND'})]
+	r = [mba.consequents[i] for i in mba.index if mba.antecedents[i] == frozenset({'mango'})]
 	# print(r)
 
 
