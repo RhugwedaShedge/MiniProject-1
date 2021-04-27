@@ -26,7 +26,7 @@ class Customer(models.Model):
 
 class Goods(models.Model): 
 	customer     = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
-	image  		 = models.ImageField(default = "product_default.png", null = True, blank = True)
+	image  		 = models.ImageField(default = "rice.jpg", null = True, blank = True)
 	category     = models.CharField(max_length = 120, null = True)
 	product_name = models.CharField(max_length = 120, null = True)
 	price		 = models.DecimalField(decimal_places = 2, max_digits = 100)

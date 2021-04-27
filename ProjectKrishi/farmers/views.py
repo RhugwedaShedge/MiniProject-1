@@ -1,9 +1,25 @@
+from django.shortcuts import render, HttpResponse, redirect#, JsonResponse
 
+from django.contrib.auth import login, authenticate, logout
 
+from django.contrib import messages
+
+from .models import *
+
+from .forms import GoodsForm, CreateUserForm
+
+from django.contrib.auth.decorators import login_required
+
+from .MBA import apriori_algo
 
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
+	a = []
+	s = list(frozenset(i for i in range(3)))
+	for i in range(3):
+		a.append(s[i])
+	print(a)
 
 	return render(request, "farmers/index.html", {})
 
@@ -24,9 +40,32 @@ def cart_view(request, *args, **kwargs):
 	else:
 		items = []
 
+
+	r = []
+	mba = apriori_algo()
+	# for i in range(2):
+	# print(mba.consequents)
+	# print(list(mba.consequents))
+	# l = list(mba.consequents.items())
+	# print(l)
+
+	# print(mba.antecedents)
+	# print(list(mba.antecedents))
+	# 	print(mba.index)
+	for i in mba.index:
+		# print(mba.antecedents[i])
+		# print(mba.consequents[i])
+		if mba.antecedents[i] == frozenset({'WOODLAND'}):
+			print('1')
+			print(mba.consequents[i])
+	r = [mba.consequents[i] for i in mba.index if mba.antecedents[i] == frozenset({'WOODLAND'})]
+	# print(r)
+
+
 	context = {
 		'items': items,
 		'order': order,
+		'r'  : r,
 	}
 
 	return render(request, "farmers/cart.html", context)
@@ -111,6 +150,9 @@ def upload_view(request):
 		if form.is_valid():
 			
 			form.save()
+
+			prod = Goods.objects.last()
+			upd = Goods.objects.filter(product_name=prod).update(customer=customer)
 			
 			return redirect('/farmers/home/')
 
@@ -182,38 +224,12 @@ def techniques_view(request, *args, **kwargs):
 	return render(request, "farmers/techniques.html", {})
 
 
+def search_product(request):
+    """ search function  """
+    if request.method == "POST":
+        query_name = request.POST.get('name', None)
+        if query_name:
+            results = Goods.objects.filter(name__contains=query_name)
+            return render(request, 'main.html', {"results":results})
 
-def generate_new_rules():
-	# "C:\Program Files\R\R-2.15.2\bin\x64\Rscript.exe"
-	RScriptCmd = u"C:\\Program Files\\R\\R-3.0.0\\bin\\x64\Rscript.exe"
-	Rfilepath = os.path.join(settings.PROJECT_ROOT, 'r', 'generate_new_rules.R')
-	Rargs = "--vanilla"
-	command = [RScriptCmd, Rfilepath, Rargs]
-	print command
-	output = subprocess.Popen(command, stdout=subprocess.PIPE).stdout.read()
-	print output
-	return True
-
-def remove_values_from_list(the_list, val):
-	return [value for value in the_list if value != val]
-
-def buy(request):
-	if request.method == 'POST':
-		form = BuyForm(request.POST) 
-		if form.is_valid():
-			cart = form.save()
-			if Cart.objects.all().count() % 10 == 0:
-				generate_new_rules()
-			return redirect(buy)
-	else:
-		form = BuyForm()
-	return render_to_response('buy.html', locals(), context_instance=RequestContext(request))
-
-def recommned(request):
-	prods =  request.GET.getlist('products')
-	rec = [ str(i) for i in Recommendation.objects.filter(buy__pk__in=prods).values_list('rec__name', flat = True)]
-	for p in prods:
-		rec  = remove_values_from_list(rec, Product.objects.get(pk=p).name)
-	c = Counter(rec).most_common()
-	data = [ i[0] for i in c]
-	return HttpResponse(simplejson.dumps(data), mimetype='application/json')
+    return render(request, 'main.html')
