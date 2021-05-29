@@ -22,14 +22,8 @@
         </div>
     </div>
     <!-- End All Title Box -->
-
     
-    {{r}}
-    <!-- {% for item in r %}
-
-        {{item}}
-
-    {% endfor %} -->
+    
     <!-- Start Cart  -->
     <div class="cart-box-main">
         <div class="container">
@@ -87,6 +81,56 @@
                         </table>
                     </div>
                 </div>
+            </div>
+
+            
+            <h1 class="w3-cursive">You may also like</h1>
+            <div class="product-categorie-box">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                        <div class="row"></div>
+                        
+                            {% for product in display %}
+                
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                    <div class="products-single fix">
+                                        <div class="box-img-hover">
+                    
+                                            <img src="{{ product.image.url }}" class="img-fluid" alt="Image">
+                    
+                    
+                                            <div class="mask-icon">
+                                                <ul>
+                                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i
+                                                                class="fas fa-eye"></i></a></li>
+                                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i
+                                                                class="fas fa-sync-alt"></i></a>
+                                                    </li>
+                                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                </ul>
+                                                <!-- <input type="submit" name=""> -->
+                                                <!-- <a class="cart" href="#">Add to Cart</a> -->
+                    
+                                                <button data-product={{product.id}} data-action="add"
+                                                    class="btn btn-dark add-btn update-cart">Add to
+                                                    Cart</button>
+                    
+                                                <!-- <a data-product={{product.id}} data-action="add" class="cart">Add to Cart</a> -->
+                    
+                                            </div>
+                                        </div>
+                                        <div class="why-text">
+                                            <h4>{{ product.product_name }}</h4>
+                                            <h5>₹{{ product.price }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
 
             <div class="row my-5">

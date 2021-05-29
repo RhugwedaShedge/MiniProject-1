@@ -37,35 +37,53 @@ def cart_view(request, *args, **kwargs):
 		order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
 		items = order.cartitem_set.all()
 	
+	
 	else:
 		items = []
 
+	upload_prod = Goods.objects.all()
+	prod = upload_prod
+	print(upload_prod)
 
-	r = []
+	ite = list(items)
+	print(customer," - Customer items in cart : ",ite)
+
 	mba = apriori_algo()
-	# for i in range(2):
-	# print(mba.consequents)
-	# print(list(mba.consequents))
-	# l = list(mba.consequents.items())
-	# print(l)
+	
+	cons = []
+	antes = []
 
-	# print(mba.antecedents)
-	# print(list(mba.antecedents))
-	# 	print(mba.index)
-	for i in mba.index:
-		# print(mba.antecedents[i])
-		# print(mba.consequents[i])
-		if mba.antecedents[i] == frozenset({'WOODLAND'}):
-			print('1')
-			print(mba.consequents[i])
-	r = [mba.consequents[i] for i in mba.index if mba.antecedents[i] == frozenset({'WOODLAND'})]
-	# print(r)
+	for i in range(len(mba.index)):
+		cons.append(list(set(mba.consequents[i])))
+		antes.append(list(set(mba.antecedents[i])))
+	
+	print(antes)
+	print(cons)
+	
+	
+	ite = list(map(str, ite))
 
+	upload_prod = list(map(str, upload_prod))
+	print(list(upload_prod))
+
+	test = [cons[i][0] for i in mba.index if antes[i][0] in ite]
+	r = [cons[i][0] for i in mba.index if antes[i][0] in ite and cons[i][0] in upload_prod]
+	
+	print("test : ",test)
+	print("r : ",r)
+
+	display = []
+	for i in range(len(r)):
+		for j in range(len(prod)):
+			if r[i] == str(prod[j]):
+				display.append(prod[j])
+	
+	print(display)
 
 	context = {
 		'items': items,
 		'order': order,
-		'r'  : r,
+		'display': display,
 	}
 
 	return render(request, "farmers/cart.html", context)
@@ -233,5 +251,3 @@ def search_product(request):
             return render(request, 'main.html', {"results":results})
 
     return render(request, 'main.html')
-
-
