@@ -15,7 +15,9 @@ from .views import ( home_view,
                         wishlist_view,
                         profile_view,
                         upload_view ,
-                        techniques_view, )
+                        techniques_view,
+                        home,
+                        success, )
 
 app_name = 'farmers'
 
@@ -36,9 +38,11 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='farmers/login.html'), name = "login"),
 	path('register/', registerpage_view, name = "register"),
 	path('logout/', auth_views.LogoutView.as_view(template_name='farmers/logout.html'), name = "logout"),
-
+    
     path('upload/', upload_view, name = "upload"),
     path('techniques/', techniques_view, name = "techniques"),
+    path('', home, name="home"),
+    path('success',success, name="success"),
     
 
 ]

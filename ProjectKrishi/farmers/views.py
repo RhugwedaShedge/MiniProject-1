@@ -14,6 +14,11 @@ from .forms import UserRegisterForm
 
 from .MBA import apriori_algo
 
+import razorpay 
+
+from django.views.decorators.csrf import csrf_exempt
+
+
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
@@ -246,4 +251,33 @@ def search_product(request):
             return render(request, 'main.html', {"results":results})
 
     return render(request, 'main.html')
+
+
+def home(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        amount = int(request.POST.get("amount"))*100
+        client = razorpay.Client(auth=("rzp_test_RTPoTn2mcx5PoT" , "KPoZMP1UBKox3v4EDiQyc0V8"))
+        payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
+        print(payment)
+        product = Product(name=name ,amount=amount, payment_id=payment['id'])
+        product.save()
+        return render(request, "pay.html" , {'payment':payment})
+    
+    return render(request, "pay.html")
+
+
+@csrf_exempt
+def success(request):
+    if request.method == "POST":
+        a = request.POST
+        order_id = ""
+        for key , val in a.items():
+            if key == 'razorpay_order_id':
+                order_id = val
+                break
+        user = Product.objects.filter(payment_id=order_id).first()
+        user.paid = True
+        user.save()
+    return render(request, "success.html")
 
