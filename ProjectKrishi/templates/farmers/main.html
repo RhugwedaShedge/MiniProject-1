@@ -68,12 +68,21 @@
                 </div>
                 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="login-box">
-                        <select id="basic" class="selectpicker show-tick form-control" data-placeholder="Sign In">
-                            <option>Register Here</option>
-                            <option>Sign In</option>
+                    <div class="our-link" style="float: right;"> 
+                            {% if user.is_authenticated %}
+                                <ul>
+                                    <li><a class="nav-item nav-link" href="/farmers/logout/">Logout</a></li>
+                                </ul>
+                            {% else %}
+                                <ul>
+                                    <li><a class="nav-item nav-link" href="/farmers/login/">Login</a></li>
+                                    <li><a class="nav-item nav-link" href="/farmers/register/">Register</a></li>
+                                </ul>
+                            {% endif %}
+                            
                         </select>
-                    </div>
+                    </div>  
+                    
                     <!-- <div class="text-slid-box">
                         <div id="offer-box" class="carouselTicker">
                             <ul class="offer-box">
@@ -212,7 +221,13 @@
             </div>
         </div>
     </div>
-
+    {% if messages %}
+        {% for messages in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>   
+        {% endfor %}
+    {% endif %}
     {% block content %}
 
     {% endblock %}

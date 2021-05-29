@@ -43,7 +43,9 @@ def apriori_algo():
     print("my_rules",my_rules)
 
     rules = my_rules[ (my_rules['lift'] >= 1) & (my_rules['confidence'] >= 0.1 ) ]
-    print("rules",rules)
+
+    print("rules : \n",rules)
+
 
     return rules
 
