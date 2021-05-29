@@ -23,6 +23,17 @@
     </div>
     <!-- End All Title Box -->
 
+    
+    <!--{{r}}-->
+    {% for r_item in r %}
+        {{r_item}}
+    {% endfor %}
+
+    <!-- {% for item in r %}
+
+        {{item}}
+
+    {% endfor %} -->
     <!-- Start Cart  -->
     <div class="cart-box-main">
         <div class="container">
@@ -109,7 +120,7 @@
                             <h4>Sub Total</h4>
                             <div class="ml-auto font-weight-bold">₹ {{ order.get_cart_total }} </div>
                         </div>
-                        <div class="d-flex">
+                        <!-- <div class="d-flex">
                             <h4>Discount</h4>
                             <div class="ml-auto font-weight-bold"> $ 40 </div>
                         </div>
@@ -121,7 +132,7 @@
                         <div class="d-flex">
                             <h4>Tax</h4>
                             <div class="ml-auto font-weight-bold"> $ 2 </div>
-                        </div>
+                        </div> -->
                         <div class="d-flex">
                             <h4>Shipping Cost</h4>
                             <div class="ml-auto font-weight-bold">₹ {{ order.delivery_cost }} </div>

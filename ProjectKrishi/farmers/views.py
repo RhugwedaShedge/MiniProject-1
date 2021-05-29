@@ -8,13 +8,20 @@ from .models import *
 
 from .forms import GoodsForm
 
-
 from django.contrib.auth.decorators import login_required
 
 from .forms import UserRegisterForm
+
+from .MBA import apriori_algo
+
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
+	a = []
+	s = list(frozenset(i for i in range(3)))
+	for i in range(3):
+		a.append(s[i])
+	print(a)
 
 	return render(request, "farmers/index.html", {})
 
@@ -35,9 +42,32 @@ def cart_view(request, *args, **kwargs):
 	else:
 		items = []
 
+
+	r = []
+	mba = apriori_algo()
+	# for i in range(2):
+	# print(mba.consequents)
+	# print(list(mba.consequents))
+	# l = list(mba.consequents.items())
+	# print(l)
+
+	# print(mba.antecedents)
+	# print(list(mba.antecedents))
+	# 	print(mba.index)
+	for i in mba.index:
+		# print(mba.antecedents[i])
+		# print(mba.consequents[i])
+		if mba.antecedents[i] == frozenset({'mango'}):
+			print('1')
+			print(mba.consequents[i])
+	r = [mba.consequents[i] for i in mba.index if mba.antecedents[i] == frozenset({'mango'})]
+	# print(r)
+
+
 	context = {
 		'items': items,
 		'order': order,
+		'r'  : r,
 	}
 
 	return render(request, "farmers/cart.html", context)
@@ -122,6 +152,9 @@ def upload_view(request):
 		if form.is_valid():
 			
 			form.save()
+
+			prod = Goods.objects.last()
+			upd = Goods.objects.filter(product_name=prod).update(customer=customer)
 			
 			return redirect('/farmers/home/')
 
@@ -180,3 +213,18 @@ def loginpage_view(request):
 
 		return render(request, 'farmers/login.html', context)
 
+
+def techniques_view(request, *args, **kwargs):
+	
+	return render(request, "farmers/techniques.html", {})
+
+
+def search_product(request):
+    """ search function  """
+    if request.method == "POST":
+        query_name = request.POST.get('name', None)
+        if query_name:
+            results = Goods.objects.filter(name__contains=query_name)
+            return render(request, 'main.html', {"results":results})
+
+    return render(request, 'main.html')

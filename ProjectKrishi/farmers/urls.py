@@ -39,6 +39,7 @@ urlpatterns = [
 
     path('upload/', upload_view, name = "upload"),
     path('techniques/', techniques_view, name = "techniques"),
+    
 
 ]
 
