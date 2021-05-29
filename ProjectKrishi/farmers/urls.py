@@ -26,7 +26,7 @@ urlpatterns = [
     path('home/', home_view, name = "home"),
     path('about/', about_view, name = "about"),
     path('cart/', cart_view, name = "cart"),
-    path('checkout/', checkout_view, name = "checkout"),
+    # path('checkout/', checkout_view, name = "checkout"),
     path('contact_us/', contact_us_view, name = "contact_us"),
     path('gallery/', gallery_view, name = "gallery"),
     path('my_account/', my_account_view, name = "my_account"),
@@ -41,8 +41,8 @@ urlpatterns = [
     
     path('upload/', upload_view, name = "upload"),
     path('techniques/', techniques_view, name = "techniques"),
-    path('', home, name="home"),
-    path('success',success, name="success"),
+    path('checkout/', home, name="checkout"),
+    path('success/',success, name="success"),
     
 
 ]

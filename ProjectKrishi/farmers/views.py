@@ -262,9 +262,9 @@ def home(request):
         print(payment)
         product = Product(name=name ,amount=amount, payment_id=payment['id'])
         product.save()
-        return render(request, "pay.html" , {'payment':payment})
+        return render(request, "farmers/pay.html" , {'payment':payment})
     
-    return render(request, "pay.html")
+    return render(request, "farmers/pay.html")
 
 
 @csrf_exempt
@@ -279,5 +279,5 @@ def success(request):
         user = Product.objects.filter(payment_id=order_id).first()
         user.paid = True
         user.save()
-    return render(request, "success.html")
+    return render(request, "farmers/success.html")
 
