@@ -6,10 +6,12 @@ from django.contrib import messages
 
 from .models import *
 
-from .forms import GoodsForm, CreateUserForm
+from .forms import GoodsForm
+
 
 from django.contrib.auth.decorators import login_required
 
+from .forms import UserRegisterForm
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
@@ -136,29 +138,23 @@ def upload_view(request):
 # 	return JsonResponse('Item was added', safe = False)
 
 
+
+
+def techniques_view(request, *args, **kwargs):
+	
+	return render(request, "farmers/techniques.html", {})
+
 def registerpage_view(request):
-
-	# if request.user.is_authenticated:
-	# 	return redirect('/farmers/home/')
-	# else:	 
-	form = CreateUserForm()
-
-	if request.method == "POST":
-		form = CreateUserForm(request.POST)
-
+	if request.method == 'POST':
+		form = UserRegisterForm(request.POST)
 		if form.is_valid():
 			form.save()
-				
-			user = form.cleaned_data.get('username')
-			messages.success(request, "Account is created for " + user)
-				
+			username = form.cleaned_data.get('username')
+			messages.success(request, f'Account created has been created! You can now login.')
 			return redirect('/farmers/login/')
-
-	context = {
-		'form': form
-	}
-
-	return render(request, 'farmers/register.html', context)
+	else:
+		form = UserRegisterForm()
+	return render(request, 'farmers/register.html', {'form': form})
 
 
 def loginpage_view(request):
@@ -183,10 +179,4 @@ def loginpage_view(request):
 		context = {}
 
 		return render(request, 'farmers/login.html', context)
-
-
-
-def techniques_view(request, *args, **kwargs):
-	
-	return render(request, "farmers/techniques.html", {})
 

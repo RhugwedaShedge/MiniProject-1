@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 from .views import ( home_view,
                         about_view,
                         cart_view,
                         checkout_view,
+                        registerpage_view,
                         contact_us_view,
                         gallery_view,
                         my_account_view,
@@ -13,8 +15,6 @@ from .views import ( home_view,
                         wishlist_view,
                         profile_view,
                         upload_view ,
-                        loginpage_view,
-                        registerpage_view,
                         techniques_view, )
 
 app_name = 'farmers'
@@ -33,9 +33,9 @@ urlpatterns = [
     path('wishlist/', wishlist_view, name = "wishlist"),
     path('profile/<str:pk>', profile_view, name = "profile"),
     # path('upload/<str:pk>', upload_view, name = "upload"),
-    path('login/', loginpage_view, name = "login"),
+    path('login/', auth_views.LoginView.as_view(template_name='farmers/login.html'), name = "login"),
 	path('register/', registerpage_view, name = "register"),
-	# path('logout/', logoutpage_view, name = "logout")
+	path('logout/', auth_views.LogoutView.as_view(template_name='farmers/logout.html'), name = "logout"),
 
     path('upload/', upload_view, name = "upload"),
     path('techniques/', techniques_view, name = "techniques"),
