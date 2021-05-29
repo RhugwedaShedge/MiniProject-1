@@ -16,3 +16,5 @@ admin.site.register(CustomerCart)
 
 admin.site.register(CartItem)
 
+admin.site.register(Product)
+

@@ -5,12 +5,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-'''class Cart(models.Model):
+class Cart(models.Model):
 	image  		 = models.ImageField(default = "product_default.png", null = True, blank = True) 
 	product_name = models.CharField(max_length = 120, null = True)
 	price		 = models.DecimalField(decimal_places = 2, max_digits = 100)
 	quantity     = models.DecimalField(decimal_places = 0, max_digits = 100)
-	total_price  = models.DecimalField(decimal_places = 2, max_digits = 100)'''
+	total_price  = models.DecimalField(decimal_places = 2, max_digits = 100)
 
 class Customer(models.Model):
 	user		= models.OneToOneField(User, null = True, on_delete = models.CASCADE)
@@ -83,4 +83,8 @@ class CartItem(models.Model):
 
 		return total
 	
-
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    amount = models.CharField(max_length=100)
+    payment_id = models.CharField(max_length=100)
+    paid = models.BooleanField(default=False)
