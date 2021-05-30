@@ -1,3 +1,4 @@
+
 var updateBtns = document.getElementsByClassName('update-cart')
 console.log(updateBtns)
 console.log("Hiiiiiiiiiiiiiiiiiiiii")
@@ -15,8 +16,32 @@ for (i = 0; i < updateBtns.length; i++)
         console.log('Not logged in')
     }
     else{
-        console.log('User logged in')
+        updateUserOrder(productId, action)
     }
+}
+
+function updateUserOrder(productId, action){
+    console.log('User logged in')
+
+    var url = '/update_item/' // This is where we want to send our data
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        // Data to send to the backend 
+        body:JSON.stringify({'productId': productId, 'action': action})
+    })
+
+    .then((response) =>{
+        return response.json()
+    })
+
+    .then((data) => {
+        console.log('data:', data)
+    })
 }
 
 
