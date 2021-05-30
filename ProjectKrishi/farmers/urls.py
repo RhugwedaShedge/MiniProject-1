@@ -18,7 +18,8 @@ from .views import ( home_view,
                         techniques_view,
                         home,
                         success,
-                        updateItem, )
+                        updateItem,
+                        add_to_cart )
 
 app_name = 'farmers'
 
@@ -45,6 +46,7 @@ urlpatterns = [
     path('checkout/', home, name="checkout"),
     path('success/', success, name="success"),
     path('update_item/', updateItem, name="update_item"),
+    path('add_to_cart/', add_to_cart, name="add_to_cart"),
 
 ]
 

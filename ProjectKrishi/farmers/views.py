@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 
 from django.http import JsonResponse
 
@@ -16,11 +16,11 @@ from .forms import UserRegisterForm
 
 from .MBA import apriori_algo
 
-import razorpay 
+import razorpay, bz2
 
 from django.views.decorators.csrf import csrf_exempt
 
-import json
+import json, requests
 
 
 # Create your views here.
@@ -41,8 +41,7 @@ def cart_view(request, *args, **kwargs):
 	if request.user.is_authenticated:
 		customer = request.user.customer
 		order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
-		items = order.cartitem_set.all()
-	
+		items = order.cartitem_set.all()	
 	
 	else:
 		items = []
@@ -153,10 +152,27 @@ def profile_view(request, pk):
 
 def add_to_cart(request, *args, **kwargs):
 
-	#if request.method == "POST":
+	customer = get_object_or_404(Customer, user=request.user)
+	print(customer)
 
+	product = Goods.objects.filter(id=kwargs.get('item_id', "")).first()
+
+	if product in request.user.customer.CustomerCart.order.all():
+		messages.info(request, 'You already have this in your cart')
+		return redirect(reverse('product:product-list'))
 	
-	return render(request, "farmers/shop.html", {})
+	cart_item, status = CartItem.objects.get_or_create(product=product)
+
+	customer_cart, status = Cart.objects.get_or_create(owner=customer)
+	customer_cart.items.add(customer_cart)
+
+	# if status:
+	# 	customer_cart.ref_code = generate_order_id()
+	# 	customer_cart.save()
+
+	messages.info(request, "item added to cart")
+	return redirect(reverse('products:product-list'))
+
 
 
 def upload_view(request):
@@ -288,15 +304,29 @@ def success(request):
 
 
 def updateItem(request):
-	print("11")
+	# print("11")
 
-	data = json.loads(request.body)
-	productId = data['productId']
-	action = data['action']
+	# data = json.loads(request.body)
+	# print("22")
+	# productId = data['productId']
+	# action = data['action']
 
-	print('Action:', action)
-	print('ProductId:', productId)
-	
+	# print('Action:', action)
+	# print('ProductId:', productId)
+
+	# customer = request.user.customer
+	# product = Product.objects.get(id=productId)
+	# order, created = Cart.objects.get_or_create(customer=customer, complete=False)
+
+	# cartItem, created = CartItem.objects.get_or_create(order=order, product=product)
+
+	# if action == 'add':
+	# 	cartItem.quantity = (cartItem.quantity + 1)
+	# elif action == 'remove':
+	# 	cartItem.quantity = (cartItem.quantity - 1)
+
+	# cartItem.save() 
+
 	return JsonResponse('Item was added', safe=False)
 
 
