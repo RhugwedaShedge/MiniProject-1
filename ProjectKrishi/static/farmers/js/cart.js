@@ -1,7 +1,7 @@
 
 var updateBtns = document.getElementsByClassName('update-cart')
 console.log(updateBtns)
-console.log("Hiiiiiiiiiiiiiiiiiiiii")
+console.log("Hiiiiiiiiiiiiiiiiiii")
 for (i = 0; i < updateBtns.length; i++)
 {
     // On each click this function will run
