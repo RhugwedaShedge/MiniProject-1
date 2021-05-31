@@ -1,8 +1,11 @@
+from os import name
 from django.shortcuts import render, HttpResponse, redirect#, JsonResponse
 
 from django.contrib.auth import login, authenticate, logout
 
 from django.contrib import messages
+from numpy import product
+from razorpay import client
 
 from .models import *
 
@@ -253,7 +256,7 @@ def search_product(request):
     return render(request, 'main.html')
 
 
-def home(request):
+def home(request,  *args, **kwargs):	
     if request.method == "POST":
         name = request.POST.get("name")
         amount = int(request.POST.get("amount"))*100
@@ -263,9 +266,32 @@ def home(request):
         product = Product(name=name ,amount=amount, payment_id=payment['id'])
         product.save()
         return render(request, "farmers/pay.html" , {'payment':payment})
-    
-    return render(request, "farmers/pay.html")
 
+    return render(request, "farmers/pay.html")
+'''
+def home(request, *args, **kwargs):
+	if request.method == "POST":
+		if request.user.is_authenticated:
+			customer = request.user.Customer
+			order, created = CustomerCart.objects.get_or_create(customer=customer,complete =False)
+			items = order.cartitem_set.all()
+		else:
+			items = []
+
+		name = request.POST.get("name")
+		amount = int(request.POST.get("amount"))*100
+		client = razorpay.Client(auth=("rzp_test_RTPoTn2mcx5PoT" , "KPoZMP1UBKox3v4EDiQyc0V8"))
+		payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
+		print(payment)
+		product = Product(name=name ,amount=amount, payment_id=payment['id'])
+		product.save()
+		context = {
+			 'items' : items,
+			 'order' : order,
+			 'payment' : payment,
+		}
+		return render(request, "farmers/pay.html" , context)
+'''
 
 @csrf_exempt
 def success(request):
@@ -281,3 +307,12 @@ def success(request):
         user.save()
     return render(request, "farmers/success.html")
 
+def searchbar_view(request):
+	if request.method == "POST":
+		searched = request.POST['searched']
+		# goods = Goods.objects.filter(category__contains = searched)
+		goods = Goods.objects.filter(product_name__contains = searched)
+		return render(request, "farmers/searchbar.html", {'searched' : searched, 'goods': goods})
+	else:
+		return render(request, "farmers/searchbar.html")
+	
