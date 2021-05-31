@@ -328,18 +328,32 @@ def search_product(request):
     return render(request, 'main.html')
 
 
-def home(request,  *args, **kwargs):	
-    if request.method == "POST":
-        name = request.POST.get("name")
-        amount = int(request.POST.get("amount"))*100
-        client = razorpay.Client(auth=("rzp_test_RTPoTn2mcx5PoT" , "KPoZMP1UBKox3v4EDiQyc0V8"))
-        payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
-        print(payment)
-        product = Product(name=name ,amount=amount, payment_id=payment['id'])
-        product.save()
-        return render(request, "farmers/pay.html" , {'payment':payment})
+def home(request):
 
-    return render(request, "farmers/pay.html")
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
+		items = order.cartitem_set.all()
+
+		
+		
+	if request.method == "POST":
+		name = request.POST.get("name")
+		amount = int(request.POST.get("amount"))#*100
+		client = razorpay.Client(auth=("rzp_test_RTPoTn2mcx5PoT" , "KPoZMP1UBKox3v4EDiQyc0V8"))
+		payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
+		print(payment)
+		product = Product(name=name ,amount=amount, payment_id=payment['id'])
+		product.save()
+		return render(request, "farmers/pay.html" , {'payment':payment})
+		
+	
+	context = {
+		'items': items,
+		'order': order,
+	}
+	
+	return render(request, "farmers/pay.html", context)
 '''
 def home(request, *args, **kwargs):
 	if request.method == "POST":
