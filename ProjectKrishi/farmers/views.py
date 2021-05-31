@@ -1,9 +1,13 @@
 
+
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 
 from django.urls import reverse_lazy
 
+
+
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 
 
 from os import name
@@ -28,11 +32,11 @@ from .forms import UserRegisterForm,CommentForm,ReplyForm
 
 from .MBA import apriori_algo
 
-import razorpay 
+import razorpay, bz2
 
 from django.views.decorators.csrf import csrf_exempt
 
-import json
+import json, requests
 
 
 # Create your views here.
@@ -53,11 +57,11 @@ def cart_view(request, *args, **kwargs):
 	if request.user.is_authenticated:
 		customer = request.user.customer
 		order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
-		items = order.cartitem_set.all()
-	
+		items = order.cartitem_set.all()	
 	
 	else:
 		items = []
+
 
 	upload_prod = Goods.objects.all()
 	prod = upload_prod
@@ -221,12 +225,39 @@ def profile_view(request, pk):
 
 
 
-def add_to_cart(request, *args, **kwargs):
+def add_to_cart(request, pk):
 
-	#if request.method == "POST":
-
+	print(pk)
+	print(pk)
 	
-	return render(request, "farmers/shop.html", {})
+
+	prod = Goods.objects.all()
+
+	customer = get_object_or_404(Customer, user=request.user)
+	print(customer)
+
+	product = Goods.objects.filter(id=pk).first()
+
+	# if product in request.user.customer.CustomerCart.order.all():
+	# 	messages.info(request, 'You already have this in your cart')
+	# 	return redirect(reverse('product:product-list'))
+	
+	cart_item, status = CartItem.objects.get_or_create(product=product)
+
+	customer_cart, status = CustomerCart.objects.get_or_create(customer=customer)
+	customer_cart.CartItem.add(customer_cart)
+
+	# if status:
+	# 	customer_cart.ref_code = generate_order_id()
+	# 	customer_cart.save()
+
+	messages.info(request, "item added to cart")
+	
+	context = {
+		'prod': prod,
+	}
+	
+	return render(request, "farmers/shop.html", context)
 
 
 def upload_view(request):
@@ -330,6 +361,7 @@ def search_product(request):
 
 def home(request):
 
+
 	if request.user.is_authenticated:
 		customer = request.user.customer
 		order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
@@ -354,30 +386,8 @@ def home(request):
 	}
 	
 	return render(request, "farmers/pay.html", context)
-'''
-def home(request, *args, **kwargs):
-	if request.method == "POST":
-		if request.user.is_authenticated:
-			customer = request.user.Customer
-			order, created = CustomerCart.objects.get_or_create(customer=customer,complete =False)
-			items = order.cartitem_set.all()
-		else:
-			items = []
 
-		name = request.POST.get("name")
-		amount = int(request.POST.get("amount"))*100
-		client = razorpay.Client(auth=("rzp_test_RTPoTn2mcx5PoT" , "KPoZMP1UBKox3v4EDiQyc0V8"))
-		payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
-		print(payment)
-		product = Product(name=name ,amount=amount, payment_id=payment['id'])
-		product.save()
-		context = {
-			 'items' : items,
-			 'order' : order,
-			 'payment' : payment,
-		}
-		return render(request, "farmers/pay.html" , context)
-'''
+
 
 @csrf_exempt
 def success(request):
@@ -403,14 +413,28 @@ def searchbar_view(request):
 		return render(request, "farmers/searchbar.html")
 
 def updateItem(request):
-	print("11")
+	# print("11")
 
-	data = json.loads(request.body)
-	productId = data['productId']
-	action = data['action']
+	# data = json.loads(request.body)
+	# print("22")
+	# productId = data['productId']
+	# action = data['action']
 
-	print('Action:', action)
-	print('ProductId:', productId)
-	
+	# print('Action:', action)
+	# print('ProductId:', productId)
+
+	# customer = request.user.customer
+	# product = Product.objects.get(id=productId)
+	# order, created = Cart.objects.get_or_create(customer=customer, complete=False)
+
+	# cartItem, created = CartItem.objects.get_or_create(order=order, product=product)
+
+	# if action == 'add':
+	# 	cartItem.quantity = (cartItem.quantity + 1)
+	# elif action == 'remove':
+	# 	cartItem.quantity = (cartItem.quantity - 1)
+
+	# cartItem.save() 
+
 	return JsonResponse('Item was added', safe=False)
 

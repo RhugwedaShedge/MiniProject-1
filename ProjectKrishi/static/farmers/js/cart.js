@@ -1,7 +1,7 @@
 
 var updateBtns = document.getElementsByClassName('update-cart')
-console.log(updateBtns)
-console.log("Hiiiiiiiiiiiiiiiiiiiii")
+
+
 for (i = 0; i < updateBtns.length; i++)
 {
     // On each click this function will run
@@ -11,7 +11,6 @@ for (i = 0; i < updateBtns.length; i++)
         console.log('productId:', productId, 'action:', action)
     })
 
-    console.log('User:', user)
     if(user == 'AnonymousUser'){
         console.log('Not logged in')
     }
@@ -22,26 +21,30 @@ for (i = 0; i < updateBtns.length; i++)
 
 function updateUserOrder(productId, action){
     console.log('User logged in')
+    console.log('productId:', productId, 'action:', action)
 
-    var url = '/update_item/' // This is where we want to send our data
+    var url = '/shop/' // This is where we want to send our data
 
     fetch(url, {
         method: 'POST',
         headers: {
-            'content-type': 'application/json',
-            'X-CSRFToken': csrftoken,
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
         },
-        // Data to send to the backend 
-        body:JSON.stringify({'productId': productId, 'action': action})
+        body:JSON.stringify({'productId':productId, 'action':action}) // Data to send to the backend 
+
     })
+    console.log(body)
 
     .then((response) =>{
         return response.json()
     })
 
-    .then((data) => {
+    .then((data) =>{
         console.log('data:', data)
     })
 }
+
+
 
 
