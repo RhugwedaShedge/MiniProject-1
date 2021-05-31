@@ -154,6 +154,8 @@ def profile_view(request, pk):
 def add_to_cart(request, pk):
 
 	print(pk)
+	print(pk)
+	
 
 	prod = Goods.objects.all()
 
