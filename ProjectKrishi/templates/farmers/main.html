@@ -86,6 +86,7 @@
                     <div class="our-link" style="float: right;"> 
                             {% if user.is_authenticated %}
                                 <ul>
+                                    <li><a class="nav-item nav-link" href="/farmers/profile/{{request.user.customer.id}}">{{request.user.customer}}</a></li>
                                     <li><a class="nav-item nav-link" href="/farmers/logout/">Logout</a></li>
                                 </ul>
                             {% else %}
