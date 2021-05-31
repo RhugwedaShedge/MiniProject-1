@@ -1,5 +1,8 @@
+
 from os import name
 from django.shortcuts import render, HttpResponse, redirect#, JsonResponse
+from django.shortcuts import render, HttpResponse, redirect
+from django.http import JsonResponse
 
 from django.contrib.auth import login, authenticate, logout
 
@@ -21,15 +24,12 @@ import razorpay
 
 from django.views.decorators.csrf import csrf_exempt
 
+import json
+
 
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
-	a = []
-	s = list(frozenset(i for i in range(3)))
-	for i in range(3):
-		a.append(s[i])
-	print(a)
 
 	return render(request, "farmers/index.html", {})
 
@@ -204,11 +204,17 @@ def techniques_view(request, *args, **kwargs):
 	return render(request, "farmers/techniques.html", {})
 
 def registerpage_view(request):
+
 	if request.method == 'POST':
 		form = UserRegisterForm(request.POST)
 		if form.is_valid():
 			form.save()
+
 			username = form.cleaned_data.get('username')
+			# user = request.user
+			# print(user)
+			# customer = Customer.objects.create(user = username.id)
+			# print(customer)
 			messages.success(request, f'Account created has been created! You can now login.')
 			return redirect('/farmers/login/')
 	else:
@@ -315,4 +321,16 @@ def searchbar_view(request):
 		return render(request, "farmers/searchbar.html", {'searched' : searched, 'goods': goods})
 	else:
 		return render(request, "farmers/searchbar.html")
+
+def updateItem(request):
+	print("11")
+
+	data = json.loads(request.body)
+	productId = data['productId']
+	action = data['action']
+
+	print('Action:', action)
+	print('ProductId:', productId)
 	
+	return JsonResponse('Item was added', safe=False)
+

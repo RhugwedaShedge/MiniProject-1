@@ -77,7 +77,7 @@ class CartItem(models.Model):
 		return total
 	
 class Product(models.Model):
-    name = models.CharField(max_length=100)
-    amount = models.CharField(max_length=100)
+    name       = models.CharField(max_length=100)
+    amount     = models.DecimalField(decimal_places = 2, max_digits = 100)
     payment_id = models.CharField(max_length=100)
-    paid = models.BooleanField(default=False)
+    paid       = models.BooleanField(default=False)
