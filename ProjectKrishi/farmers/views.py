@@ -46,6 +46,7 @@ def cart_view(request, *args, **kwargs):
 	else:
 		items = []
 
+
 	upload_prod = Goods.objects.all()
 	prod = upload_prod
 	print(upload_prod)
@@ -150,29 +151,37 @@ def profile_view(request, pk):
 
 
 
-def add_to_cart(request, *args, **kwargs):
+def add_to_cart(request, pk):
+
+	print(pk)
+
+	prod = Goods.objects.all()
 
 	customer = get_object_or_404(Customer, user=request.user)
 	print(customer)
 
-	product = Goods.objects.filter(id=kwargs.get('item_id', "")).first()
+	product = Goods.objects.filter(id=pk).first()
 
-	if product in request.user.customer.CustomerCart.order.all():
-		messages.info(request, 'You already have this in your cart')
-		return redirect(reverse('product:product-list'))
+	# if product in request.user.customer.CustomerCart.order.all():
+	# 	messages.info(request, 'You already have this in your cart')
+	# 	return redirect(reverse('product:product-list'))
 	
 	cart_item, status = CartItem.objects.get_or_create(product=product)
 
-	customer_cart, status = Cart.objects.get_or_create(owner=customer)
-	customer_cart.items.add(customer_cart)
+	customer_cart, status = CustomerCart.objects.get_or_create(customer=customer)
+	customer_cart.CartItem.add(customer_cart)
 
 	# if status:
 	# 	customer_cart.ref_code = generate_order_id()
 	# 	customer_cart.save()
 
 	messages.info(request, "item added to cart")
-	return redirect(reverse('products:product-list'))
-
+	
+	context = {
+		'prod': prod,
+	}
+	
+	return render(request, "farmers/shop.html", context)
 
 
 def upload_view(request):
@@ -275,17 +284,31 @@ def search_product(request):
 
 
 def home(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        amount = int(request.POST.get("amount"))*100
-        client = razorpay.Client(auth=("rzp_test_RTPoTn2mcx5PoT" , "KPoZMP1UBKox3v4EDiQyc0V8"))
-        payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
-        print(payment)
-        product = Product(name=name ,amount=amount, payment_id=payment['id'])
-        product.save()
-        return render(request, "farmers/pay.html" , {'payment':payment})
-    
-    return render(request, "farmers/pay.html")
+
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
+		items = order.cartitem_set.all()
+
+		
+		
+	if request.method == "POST":
+		name = request.POST.get("name")
+		amount = int(request.POST.get("amount"))#*100
+		client = razorpay.Client(auth=("rzp_test_RTPoTn2mcx5PoT" , "KPoZMP1UBKox3v4EDiQyc0V8"))
+		payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
+		print(payment)
+		product = Product(name=name ,amount=amount, payment_id=payment['id'])
+		product.save()
+		return render(request, "farmers/pay.html" , {'payment':payment})
+		
+	
+	context = {
+		'items': items,
+		'order': order,
+	}
+	
+	return render(request, "farmers/pay.html", context)
 
 
 @csrf_exempt

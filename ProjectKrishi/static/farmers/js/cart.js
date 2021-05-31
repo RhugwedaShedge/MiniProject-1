@@ -23,7 +23,7 @@ function updateUserOrder(productId, action){
     console.log('User logged in')
     console.log('productId:', productId, 'action:', action)
 
-    var url = '/update_item/' // This is where we want to send our data
+    var url = '/shop/' // This is where we want to send our data
 
     fetch(url, {
         method: 'POST',
@@ -36,11 +36,11 @@ function updateUserOrder(productId, action){
     })
     console.log(body)
 
-    .then((response) => {
+    .then((response) =>{
         return response.json()
     })
 
-    .then((data) => {
+    .then((data) =>{
         console.log('data:', data)
     })
 }
