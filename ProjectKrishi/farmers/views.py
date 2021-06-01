@@ -132,7 +132,7 @@ def shop_detail_view(request, *args, **kwargs):
 	
 	return render(request, "farmers/shop-detail.html", {})
 
-'''
+
 def shop_view(request, *args, **kwargs):
 	
 	goods = Goods.objects.all()
@@ -141,75 +141,75 @@ def shop_view(request, *args, **kwargs):
 		
 	}
 	return render(request, "farmers/shop.html", context)
-'''
+
 
 	
-def shop_view(request, *args, **kwargs):
+# def shop_view(request, *args, **kwargs):
 
-	goods = Goods.objects.all()
-	context = {
-		'goods': goods,
+# 	goods = Goods.objects.all()
+# 	context = {
+# 		'goods': goods,
 		
-	}
-	model=Goods
-	form_class=CommentForm
-	second_form_class=ReplyForm
+# 	}
+# 	model=Goods
+# 	form_class=CommentForm
+# 	second_form_class=ReplyForm
 
 
-	def get_context_data(self,**kwargs):
-		context=super(shop_view,self).get_context_data(**kwargs)
-		if 'form' not in context:
-			context['form']=self.form_class(request=self.request)
+# def get_context_data(self,**kwargs):
+# 	context=super(shop_view,self).get_context_data(**kwargs)
+# 	if 'form' not in context:
+# 		context['form']=self.form_class(request=self.request)
 		
-		if 'form2' not in context:
-			context['form2']=self.second_form_class(request=self.request)
+# 	if 'form2' not in context:
+# 		context['form2']=self.second_form_class(request=self.request)
 	
-		return context
+# 	return context
 
 
-	def post(self,request,*args,**kwargs):
-		self.object=self.get_object()
-		if 'form' in request.POST:
-			form_class=self.get_form_class()
-			form_name='form'
-		else:
-			form_class=self.second_form_class
-			form_name='form2'
+# def post(self,request,*args,**kwargs):
+# 	self.object=self.get_object()
+# 	if 'form' in request.POST:
+# 		form_class=self.get_form_class()
+# 		form_name='form'
+# 	else:
+# 		form_class=self.second_form_class
+# 		form_name='form2'
 
-		form=self.get_form(form_class)
+# 	form=self.get_form(form_class)
 
-		if form_name=='form' and form.isvalid():
-			print("comment form is returned")
-			return self.form_valid(form)
-		elif form_name=='form2' and form.isvalid():
-			print("reply form is returned")
-			return self.form2_valid(form)
+# 	if form_name=='form' and form.isvalid():
+# 		print("comment form is returned")
+# 		return self.form_valid(form)
+# 	elif form_name=='form2' and form.isvalid():
+# 		print("reply form is returned")
+# 		return self.form2_valid(form)
 
-	def get_success_url(self):
-		self.object=self.get_object()
-		price=self.object.price
-		image=self.object.image
-		return reverse_lazy('goods:shop',kwargs={'price':price.slug,'image':image.slug,'slug':self.object.slug})
+# def get_success_url(self):
+# 	self.object=self.get_object()
+# 	price=self.object.price
+# 	image=self.object.image
+# 	return reverse_lazy('goods:shop',kwargs={'price':price.slug,'image':image.slug,'slug':self.object.slug})
 
-	def form_valid(self,form):
-		self.object=self.ge_object()
-		fm=form.save(commit=False)
-		fm.author=self.request.user
-		fm.product_name=self.object.comments.name
-		fm.product_name_id=self.object.id
-		fm.save()
-		return HttpResponseRedirect(self.get_success_url())
+# def form_valid(self,form):
+# 	self.object=self.ge_object()
+# 	fm=form.save(commit=False)
+# 	fm.author=self.request.user
+# 	fm.product_name=self.object.comments.name
+# 	fm.product_name_id=self.object.id
+# 	fm.save()
+# 	return HttpResponseRedirect(self.get_success_url())
 
-	def form2_valid(self,form):
-		self.object=self.ge_object()
-		fm=form.save(commit=False)
-		fm.author=self.request.user
-		fm.comment_name_id=self.request.POST.get('comment.id')
-		fm.save()
-		return HttpResponseRedirect(self.get_success_url())
+# def form2_valid(self,form):
+# 	self.object=self.ge_object()
+# 	fm=form.save(commit=False)
+# 	fm.author=self.request.user
+# 	fm.comment_name_id=self.request.POST.get('comment.id')
+# 	fm.save()
+# 	return HttpResponseRedirect(self.get_success_url())
 
 
-	return render(request, "farmers/shop.html", context)
+# 	return render(request, "farmers/shop.html", context)
 	
 
 
@@ -463,4 +463,15 @@ def updateItem(request):
 	# cartItem.save() 
 
 	return JsonResponse('Item was added', safe=False)
+
+
+
+def delete(request, pk):
+	product = Product.objects.get(id=pk)
+
+	print(product)
+
+	context = {'product': product}
+
+	return render(request, 'farmers/about.html', context)
 
