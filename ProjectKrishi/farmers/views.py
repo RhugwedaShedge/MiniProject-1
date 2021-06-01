@@ -395,9 +395,7 @@ def home(request):
 	if request.user.is_authenticated:
 		customer = request.user.customer
 		order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
-		items = order.cartitem_set.all()
-
-		
+		items = order.cartitem_set.all()	
 		
 	if request.method == "POST":
 		name = request.POST.get("name")
@@ -416,7 +414,6 @@ def home(request):
 	}
 	
 	return render(request, "farmers/pay.html", context)
-
 
 @csrf_exempt
 def success(request):
