@@ -92,9 +92,47 @@
                                                     <h4>{{ product.product_name }}</h4>
                                                     <h5>₹{{ product.price }}</h5>
                                                 </div>
+                                                <h4>Comments:</h4>
+                                                <form method="post">
+                                                    <div class="form-group"> 
+                                                        {% csrf_token %}
+                                                        {{form.as_p}}
+                                                        <input type="text" name="co" placeholder="Enter comment here">
+                                                        <input type="submit" name="form" value="Add comment" class="btn btn-primary btn-sm">
+                                                    
+                                                    
+                                                    </div>
+                                                </form>
+
+                                                {% for comment in goods.comments.all %}
+                                                    <h4>{{comment.author}}<small><i>Posted on {{comment.date_added}}</i></small></h4>
+                                                    <p>{{comment.body}}</p>
+                                                    {% for reply in comment.replies.all %}
+                                                        <h5>{{reply.author}}<small><i>Posted on {{reply.date_added}}</i></small></h5>
+                                                        <p>{{reply.reply_body}}</p>
+
+                                                    {% endfor %}
+
+                                                    <form method="post">
+                                                        <input type="hidden" name="comment.id" value="{{comment.id}}">
+                                                        <input type="hidden" name="comment.comm_name" value="{{comment.comm_name}}">
+                                                        {% csrf_token %}
+                                                        {{form.as_p}}
+                                                        <input type="submit" name="form2" value="Add Reply" class="btn btn-warning btn-sm">
+                                                    </form>
+                                                {% endfor %}
+
+
                                             </div>
                                         </div>
                                         {% endfor %}
+
+
+
+
+
+                                        
+
                                         <!-- ------------------------------------------ -->
                                         <!-- <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                             <div class="products-single fix">
@@ -419,7 +457,7 @@
     <!-- ALL PLUGINS -->
     <script src="{% static 'farmers/js/jquery.superslides.min.js' %}"></script>
     <script src="{% static 'farmers/js/bootstrap-select.js' %}"></script>
-    <script src="{% static 'farmers/js/inewsticker.js"></script>
+    <script src="{% static 'farmers/js/inewsticker.js' % }"></script>
     <script src="{% static 'farmers/js/bootsnav.js.' %}"></script>
     <script src="{% static 'farmers/js/images-loded.min.js' %}"></script>
     <script src="{% static 'farmers/js/isotope.min.js' %}"></script>
