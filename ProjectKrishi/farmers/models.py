@@ -82,6 +82,7 @@ class Product(models.Model):
     payment_id = models.CharField(max_length=100)
     paid       = models.BooleanField(default=False)
 
+
 class Comment(models.Model):
 	product_name=models.ForeignKey(Goods,null=True,on_delete=models.CASCADE,related_name='comments')
 	comm_name=models.CharField(max_length=100,blank=True)
