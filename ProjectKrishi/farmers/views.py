@@ -1,9 +1,19 @@
 
+
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render, HttpResponse, redirect
+
+from django.urls import reverse_lazy
+
+
+
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+
 
 from os import name
 from django.shortcuts import render, HttpResponse, redirect#, JsonResponse
 from django.shortcuts import render, HttpResponse, redirect
+
 from django.http import JsonResponse
 
 from django.contrib.auth import login, authenticate, logout
@@ -14,11 +24,11 @@ from razorpay import client
 
 from .models import *
 
-from .forms import GoodsForm
+from .forms import CommentForm, GoodsForm, ReplyForm
 
 from django.contrib.auth.decorators import login_required
 
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm,CommentForm,ReplyForm
 
 from .MBA import apriori_algo
 
@@ -128,9 +138,67 @@ def shop_view(request, *args, **kwargs):
 
 	context = {
 		'goods': goods,
+		
 	}
+	form_class=CommentForm
+	second_form_class=ReplyForm
+
+
+	def get_context_data(self,**kwargs):
+		context=super(shop_view,self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form']=self.form_class(request=self.request)
+		
+		if 'form2' not in context:
+			context['form2']=self.second_form_class(request=self.request)
 	
+		return context
+
+
+	def post(self,request,*args,**kwargs):
+		self.object=self.get_object()
+		if 'form' in request.POST:
+			form_class=self.get_form_class()
+			form_name='form'
+		else:
+			form_class=self.second_form_class
+			form_name='form2'
+
+		form=self.get_form(form_class)
+
+		if form_name=='form' and form.isvalid():
+			print("comment form is returned")
+			return self.form_valid(form)
+		elif form_name=='form2' and form.isvalid():
+			print("reply form is returned")
+			return self.form2_valid(form)
+
+	def get_success_url(self):
+		self.object=self.get_object()
+		price=self.object.price
+		image=self.object.image
+		return reverse_lazy('goods:shop',kwargs={'price':price.slug,'image':image.slug,'slug':self.object.slug})
+
+	def form_valid(self,form):
+		self.object=self.ge_object()
+		fm=form.save(commit=False)
+		fm.author=self.request.user
+		fm.product_name=self.object.comments.name
+		fm.product_name_id=self.object.id
+		fm.save()
+		return HttpResponseRedirect(self.get_success_url())
+
+	def form2_valid(self,form):
+		self.object=self.ge_object()
+		fm=form.save(commit=False)
+		fm.author=self.request.user
+		fm.comment_name_id=self.request.POST.get('comment.id')
+		fm.save()
+		return HttpResponseRedirect(self.get_success_url())
+
+
 	return render(request, "farmers/shop.html", context)
+
 
 
 @login_required(login_url = 'login')
@@ -157,39 +225,50 @@ def profile_view(request, pk):
 
 
 
-def add_to_cart(request, pk):
+def add_to_cart(request, productId):
 
-	print(pk)
-	print(pk)
+	print(productId)
+	customer = request.user.customer
+	product = Product.objects.get(id=productId)
+	order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
+
+	cartItem, created = CartItem.objects.get_or_create(order=order, product=product)
+
+	# if action == 'add':
+	# 	cartItem.quantity = (cartItem.quantity + 1)
+	# elif action == 'remove':
+	# 	cartItem.quantity = (cartItem.quantity - 1)
+
+	cartItem.save() 
 	
 
-	prod = Goods.objects.all()
+	# prod = Goods.objects.all()
 
-	customer = get_object_or_404(Customer, user=request.user)
-	print(customer)
+	# customer = get_object_or_404(Customer, user=request.user)
+	# print(customer)
 
-	product = Goods.objects.filter(id=pk).first()
+	# product = Goods.objects.filter(id=pk).first()
 
-	# if product in request.user.customer.CustomerCart.order.all():
-	# 	messages.info(request, 'You already have this in your cart')
-	# 	return redirect(reverse('product:product-list'))
+	# # if product in request.user.customer.CustomerCart.order.all():
+	# # 	messages.info(request, 'You already have this in your cart')
+	# # 	return redirect(reverse('product:product-list'))
 	
-	cart_item, status = CartItem.objects.get_or_create(product=product)
+	# cart_item, status = CartItem.objects.get_or_create(product=product)
 
-	customer_cart, status = CustomerCart.objects.get_or_create(customer=customer)
-	customer_cart.CartItem.add(customer_cart)
+	# customer_cart, status = CustomerCart.objects.get_or_create(customer=customer)
+	# customer_cart.CartItem.add(customer_cart)
 
-	# if status:
-	# 	customer_cart.ref_code = generate_order_id()
-	# 	customer_cart.save()
+	# # if status:
+	# # 	customer_cart.ref_code = generate_order_id()
+	# # 	customer_cart.save()
 
 	messages.info(request, "item added to cart")
 	
-	context = {
-		'prod': prod,
-	}
+	# context = {
+	# 	'prod': prod,
+	# }
 	
-	return render(request, "farmers/shop.html", context)
+	# return render(request, "farmers/shop.html", context)
 
 
 def upload_view(request):
@@ -292,6 +371,7 @@ def search_product(request):
 
 
 def home(request):
+
 
 	if request.user.is_authenticated:
 		customer = request.user.customer
