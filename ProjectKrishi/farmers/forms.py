@@ -1,5 +1,6 @@
 from django import forms
-from .models import Goods
+from django.contrib.auth import models
+from .models import Customer, Goods
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -10,6 +11,7 @@ class GoodsForm(forms.ModelForm):
 		fields = '__all__' 
 
 class UserRegisterForm(UserCreationForm):
+	model = Customer
 	email = forms.EmailField()
 	
 	class Meta:
