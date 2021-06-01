@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import models
 from .models import Comment, Goods, Reply
 
 from django.contrib.auth.forms import UserCreationForm
