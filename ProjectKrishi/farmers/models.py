@@ -83,11 +83,12 @@ class Product(models.Model):
     paid       = models.BooleanField(default=False)
 
 
+
 class Comment(models.Model):
-	product_name=models.ForeignKey(Goods,null=True,on_delete=models.CASCADE,related_name='comments')
-	comm_name=models.CharField(max_length=100,blank=True)
-	author=models.ForeignKey(User,on_delete=models.CASCADE)
-	body=models.TextField(max_length=500)
+	product_name = models.ForeignKey(Goods,null=True,on_delete=models.CASCADE,related_name='comments')
+	comm_name = models.CharField(max_length=100,blank=True)
+	author = models.ForeignKey(User,on_delete=models.CASCADE)
+	body = models.TextField(max_length=500)
 	date_added=models.DateTimeField(auto_now_add=True)
 
 	def save(self,*args,**kwargs):

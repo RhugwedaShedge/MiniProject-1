@@ -42,7 +42,7 @@ def apriori_algo():
     my_rules = association_rules(my_frequent_itemsets, metric="lift", min_threshold=1)
     print("my_rules",my_rules)
 
-    rules = my_rules[ (my_rules['lift'] >= 1) & (my_rules['confidence'] >= 0.1 ) ]
+    rules = my_rules[ (my_rules['lift'] >= 1) & (my_rules['confidence'] >= 0.6 ) ]
 
     print("rules : \n",rules)
 
