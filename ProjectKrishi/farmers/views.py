@@ -244,39 +244,50 @@ def profile_view(request, pk):
 
 
 
-def add_to_cart(request, pk):
+def add_to_cart(request, productId):
 
-	print(pk)
-	print(pk)
+	print(productId)
+	customer = request.user.customer
+	product = Product.objects.get(id=productId)
+	order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
+
+	cartItem, created = CartItem.objects.get_or_create(order=order, product=product)
+
+	# if action == 'add':
+	# 	cartItem.quantity = (cartItem.quantity + 1)
+	# elif action == 'remove':
+	# 	cartItem.quantity = (cartItem.quantity - 1)
+
+	cartItem.save() 
 	
 
-	prod = Goods.objects.all()
+	# prod = Goods.objects.all()
 
-	customer = get_object_or_404(Customer, user=request.user)
-	print(customer)
+	# customer = get_object_or_404(Customer, user=request.user)
+	# print(customer)
 
-	product = Goods.objects.filter(id=pk).first()
+	# product = Goods.objects.filter(id=pk).first()
 
-	# if product in request.user.customer.CustomerCart.order.all():
-	# 	messages.info(request, 'You already have this in your cart')
-	# 	return redirect(reverse('product:product-list'))
+	# # if product in request.user.customer.CustomerCart.order.all():
+	# # 	messages.info(request, 'You already have this in your cart')
+	# # 	return redirect(reverse('product:product-list'))
 	
-	cart_item, status = CartItem.objects.get_or_create(product=product)
+	# cart_item, status = CartItem.objects.get_or_create(product=product)
 
-	customer_cart, status = CustomerCart.objects.get_or_create(customer=customer)
-	customer_cart.CartItem.add(customer_cart)
+	# customer_cart, status = CustomerCart.objects.get_or_create(customer=customer)
+	# customer_cart.CartItem.add(customer_cart)
 
-	# if status:
-	# 	customer_cart.ref_code = generate_order_id()
-	# 	customer_cart.save()
+	# # if status:
+	# # 	customer_cart.ref_code = generate_order_id()
+	# # 	customer_cart.save()
 
 	messages.info(request, "item added to cart")
 	
-	context = {
-		'prod': prod,
-	}
+	# context = {
+	# 	'prod': prod,
+	# }
 	
-	return render(request, "farmers/shop.html", context)
+	# return render(request, "farmers/shop.html", context)
 
 
 def upload_view(request):
@@ -405,7 +416,6 @@ def home(request):
 	}
 	
 	return render(request, "farmers/pay.html", context)
-
 
 
 @csrf_exempt

@@ -141,8 +141,8 @@
                             <hr class="mb-4">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="Name">Enter Amount *</label>
-                                    <input type="number" name="amount" class="form-control" id="firstName" placeholder="" value="" required>
+                                    <label for="Name">Amount to pay*</label>
+                                    <input type="number" name="amount" class="form-control" id="firstName" placeholder="" value="{{order.get_grand_total}}" required>
                                     <div class="invalid-feedback"> Valid Amount is required. </div>
                                 </div>
                             </div>
