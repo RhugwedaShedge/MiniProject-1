@@ -23,6 +23,7 @@
     <!-- Start Cart  -->
     <div class="cart-box-main">
         <div class="container">
+
             <!-- <div class="row new-account-login">
                 <div class="col-sm-6 col-lg-6 mb-3">
                     <div class="title-left">
@@ -135,8 +136,8 @@
                             <hr class="mb-4">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="Name">Enter Amount *</label>
-                                    <input type="number" name="amount" class="form-control" id="firstName" placeholder="" value="" required>
+                                    <label for="Name">Amount to pay*</label>
+                                    <input type="number" name="amount" class="form-control" id="firstName" placeholder="" value="{{order.get_grand_total}}" required>
                                     <div class="invalid-feedback"> Valid Amount is required. </div>
                                 </div>
                             </div>
@@ -148,6 +149,7 @@
                 <div class="col-sm-6 col-lg-6 mb-3">
                     <div class="row">
                         <div class="col-md-12 col-lg-12">
+
                             <div class="shipping-method-box">
                                 <div class="title-left">
                                     <h3>Shipping Method</h3>

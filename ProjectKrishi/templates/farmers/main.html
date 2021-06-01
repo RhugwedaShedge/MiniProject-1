@@ -192,7 +192,7 @@
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
                     <ul class="cart-list">
-                        <li>
+                        <li> 
                             <a href="#" class="photo"><img src="{% static 'farmers/images/img-pro-01.jpg' %}"
                                     class="cart-thumb" alt="" /></a>
                             <h6><a href="#">Delica omtantur </a></h6>
@@ -209,10 +209,10 @@
                                     class="cart-thumb" alt="" /></a>
                             <h6><a href="#">Agam facilisis</a></h6>
                             <p>1x - <span class="price">$40.00</span></p>
-                        </li>
+                        </li>   
                         <li class="total">
-                            <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                            <span class="float-right"><strong>Total</strong>: $180.00</span>
+                            <a href="/farmers/cart/" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
+                            <span class="float-right"><strong>Total</strong>: $180.00</span> 
                         </li>
                     </ul>
                 </li>
@@ -228,9 +228,9 @@
         <div class="container">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                <form action="" method="POST">
+                <form action="/farmers/searchbar/" method="POST">
                     {% csrf_token %}
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="search" name="searched" class="form-control" placeholder="Search">
                     <input type="submit" name="submit" class="form-control" placeholder="Search">
                 </form>
                 <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
