@@ -57,7 +57,7 @@ class CustomerCart(models.Model):
 
 	@property
 	def get_grand_total(self):
-		total = self.delivery_cost + self.get_cart_total
+		total = int(self.delivery_cost + self.get_cart_total)
 
 		return total
 
