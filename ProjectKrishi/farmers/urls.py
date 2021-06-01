@@ -61,6 +61,7 @@ urlpatterns = [
     path('success/', success, name="success"),
     path('update_item/', updateItem, name="update_item"),
     
+    
 
 
     # path('shop/<str:pk>/add_to_cart/', add_to_cart, name = "add_to_cart"),

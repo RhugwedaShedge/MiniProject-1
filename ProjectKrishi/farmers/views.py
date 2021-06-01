@@ -1,8 +1,8 @@
 
 
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render, HttpResponse, redirect
-
+from django.shortcuts import render, HttpResponse, redirect,get_object_or_404
+ 
 from django.urls import reverse_lazy
 
 
@@ -24,7 +24,7 @@ from razorpay import client
 
 from .models import *
 
-from .forms import CommentForm, GoodsForm, ReplyForm
+from .forms import CommentForm, GoodsForm
 
 from django.contrib.auth.decorators import login_required
 
@@ -132,14 +132,26 @@ def shop_detail_view(request, *args, **kwargs):
 	
 	return render(request, "farmers/shop-detail.html", {})
 
-
+'''
 def shop_view(request, *args, **kwargs):
+	
 	goods = Goods.objects.all()
-
 	context = {
 		'goods': goods,
 		
 	}
+	return render(request, "farmers/shop.html", context)
+'''
+
+	
+def shop_view(request, *args, **kwargs):
+
+	goods = Goods.objects.all()
+	context = {
+		'goods': goods,
+		
+	}
+	model=Goods
 	form_class=CommentForm
 	second_form_class=ReplyForm
 
@@ -198,6 +210,13 @@ def shop_view(request, *args, **kwargs):
 
 
 	return render(request, "farmers/shop.html", context)
+	
+
+
+
+
+
+
 
 
 
