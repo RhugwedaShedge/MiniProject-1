@@ -29,7 +29,7 @@ from .views import ( home_view,
                         updateItem, 
                         updateItem,
                         add_to_cart,
-                        delete, )
+                        )
 
 
 
@@ -60,7 +60,7 @@ urlpatterns = [
     path('searchbar/', searchbar_view, name = "searchbar"),
     path('success/', success, name="success"),
     path('update_item/', updateItem, name="update_item"),
-    path('about/<str:pk>/', delete, name="delete"),  
+     
     
 
     # path('shop/<str:pk>/add_to_cart/', add_to_cart, name = "add_to_cart"),

@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Comment, Goods,Reply
+from .models import Comment, Equipments, Goods,Reply
 
 from django.contrib.auth import models
 from .models import Comment, Goods, Reply
@@ -12,6 +12,11 @@ from django.contrib.auth.models import User
 class GoodsForm(forms.ModelForm):
 	class Meta:
 		model = Goods
+		fields = '__all__' 
+
+class EquipmentsForm(forms.ModelForm):
+	class Meta:
+		model = Equipments
 		fields = '__all__' 
 
 class UserRegisterForm(UserCreationForm):

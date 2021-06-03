@@ -24,7 +24,7 @@ from razorpay import client
 
 from .models import *
 
-from .forms import CommentForm, GoodsForm
+from .forms import CommentForm, EquipmentsForm, GoodsForm
 
 from django.contrib.auth.decorators import login_required
 
@@ -63,8 +63,11 @@ def cart_view(request, *args, **kwargs):
 		items = []
 
 
-	upload_prod = Goods.objects.all()
+	upload_prod = Goods.objects.all() 
+	upload_prod_equip= Equipments.objects.all()
+	
 	prod = upload_prod
+	prod_equip = upload_prod_equip
 	print(upload_prod)
 
 	ite = list(items)
@@ -85,22 +88,29 @@ def cart_view(request, *args, **kwargs):
 	
 	ite = list(map(str, ite))
 
-	upload_prod = list(map(str, upload_prod))
+	upload_prod = list(map(str, upload_prod)) + list(map(str, upload_prod_equip))
 	print(list(upload_prod))
 
 	test = [cons[i][0] for i in mba.index if antes[i][0] in ite]
-	r = [cons[i][0] for i in mba.index if antes[i][0] in ite and cons[i][0] in upload_prod]
+	r = [cons[i][0] for i in mba.index if antes[i][0] in ite and cons[i][0] in (upload_prod or upload_prod_equip)]
 	
 	print("test : ",test)
 	print("r : ",r)
 
 	display = []
+
+
 	for i in range(len(r)):
 		for j in range(len(prod)):
 			if r[i] == str(prod[j]):
 				display.append(prod[j])
+		for j in range(len(prod_equip)):
+			if r[i] == str(prod_equip[j]):
+				display.append(prod_equip[j])
 	
 	print(display)
+
+
 
 	context = {
 		'items': items,
@@ -136,9 +146,10 @@ def shop_detail_view(request, *args, **kwargs):
 def shop_view(request, *args, **kwargs):
 	
 	goods = Goods.objects.all()
+	equipments = Equipments.objects.all()
 	context = {
 		'goods': goods,
-		
+		'equipments': equipments,
 	}
 	return render(request, "farmers/shop.html", context)
 
@@ -244,11 +255,12 @@ def profile_view(request, pk):
 
 
 
-def add_to_cart(request, productId):
+def add_to_cart(request, productId,product_equipId):
 
 	print(productId)
 	customer = request.user.customer
 	product = Product.objects.get(id=productId)
+	#product_equip = Product_equip.objects.get(id=product_equipId)
 	order, created = CustomerCart.objects.get_or_create(customer=customer, complete=False)
 
 	cartItem, created = CartItem.objects.get_or_create(order=order, product=product)
@@ -296,12 +308,13 @@ def upload_view(request):
 		customer = request.user.customer
 
 	form = GoodsForm(initial = {'customer': customer})
-	#form_equip = EquipmentsForm(initial = {'customer': customer})
+	form_equip = EquipmentsForm(initial = {'customer': customer})
 
 	if request.method == "POST":
 		
 		form = GoodsForm(request.POST)
-
+		form_equip = EquipmentsForm(request.POST)
+		
 		if form.is_valid():
 			
 			form.save()
@@ -310,14 +323,22 @@ def upload_view(request):
 			upd = Goods.objects.filter(product_name=prod).update(customer=customer)
 			
 			return redirect('/farmers/home/')
+		
+		
+		if form_equip.is_valid():
+			form_equip.save()
+
+			equip = Equipments.objects.last()
+			upd2 = Equipments.objects.filter(product_name=equip).update(customer=customer)
+
+			return redirect('/farmers/home/')
 
 	context = {
 		'form': form,
+		'form_equip': form_equip,
 	}
 
 	return render(request, "farmers/upload.html", context)
-	
-
 
 
 # def UpdateItem(request):
@@ -399,7 +420,7 @@ def home(request):
 		
 	if request.method == "POST":
 		name = request.POST.get("name")
-		amount = int(request.POST.get("amount"))#*100
+		amount = int(request.POST.get("amount"))*100
 		client = razorpay.Client(auth=("rzp_test_RTPoTn2mcx5PoT" , "KPoZMP1UBKox3v4EDiQyc0V8"))
 		payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
 		print(payment)

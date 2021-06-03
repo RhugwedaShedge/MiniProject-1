@@ -32,10 +32,11 @@ class Goods(models.Model):
 
 
 class Equipments(models.Model):
+	customer     = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+	image  		 = models.ImageField(default = "plough.jpg", null = True, blank = True)
 	product_name = models.CharField(max_length = 120, null = True)
 	price		 = models.DecimalField(decimal_places = 2, max_digits = 100)
 	stock        = models.DecimalField(decimal_places = 0, max_digits = 100)
-	min_purchase = models.DecimalField(decimal_places = 0, max_digits = 100, default=5)
 	desc         = models.CharField(max_length = 500, null = True)
 
 	def __str__(self):
@@ -64,17 +65,19 @@ class CustomerCart(models.Model):
 
 class CartItem(models.Model):
 	product     = models.ForeignKey(Goods, on_delete=models.SET_NULL, blank=True, null=True)
+	#product_equip     = models.ForeignKey(Equipments, on_delete=models.SET_NULL, blank=True, null=True)
 	order       = models.ForeignKey(CustomerCart, on_delete=models.SET_NULL, blank=True, null=True)
 	quantity    = models.DecimalField(decimal_places = 0, max_digits = 100)
 
 	def __str__(self):
-		return self.product.product_name
+		return self.product.product_name#,self.product_equip.product_name
+	
 
 	@property
 	def get_total(self):
 		total = self.product.price * self.quantity
-
-		return total
+		#total_equip=self.product_equip.price* self.quantity
+		return total#,total_equip
 	
 class Product(models.Model):
     name       = models.CharField(max_length=100)
