@@ -24,9 +24,9 @@ import os
 SECRET_KEY = 'x%n*x=$bjhj*vu_#)!*vam*jxr$ffk^pttw_$&c26!z8ph)mdj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['krishi-site.herokuapp.com']
 
 
 # Application definition
@@ -43,7 +43,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',    
+    'whitenoise.middleware.WhiteNoiseMiddleware',    
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -126,6 +127,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
