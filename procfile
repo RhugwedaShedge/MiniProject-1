@@ -1,1 +1,0 @@
-web:gunicorn ProjectKrishi.wsgi --log-filter
